@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}
+Edit Tenant
+{% endblock title %}
+
+{% block content %}
+<h1>Edit Tenant Page</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p}}
+    <br/>
+    <button type="submit" class="btn btn-success">
+        Update Record
+    </button>
+    <a href="{% url "tenant_record" record.id %}" class="btn btn-danger">Cancel</a>
+    <a href="{% url "all_tenants" %}" class="btn btn-secondary">Cancel and Back to All Tenants</a>
+</form>
+
+{% endblock content %}
