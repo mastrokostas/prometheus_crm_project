@@ -4,7 +4,7 @@ from django.core.validators import MaxValueValidator
 # Create your models here.
 
 
-class PropertyModel(models.Model):
+class Property(models.Model):
 
     class ProgressChoices(models.TextChoices):
         completed = "Completed"
@@ -23,7 +23,7 @@ class PropertyModel(models.Model):
         managed_ownership_occupancy = "Managed - Ownership Occupancy"
         no_management = "Not Managed"
         
-    class UtilisationStatus(models.TextChoices):
+    class UtilisationStatusChoices(models.TextChoices):
         rented = "Rented"
         vacant = "Vacant"
         remove = "Remove From Market"
@@ -44,7 +44,7 @@ class PropertyModel(models.Model):
     furniture_progress = models.CharField(max_length=50, choices=ProgressChoices.choices, default=ProgressChoices.not_started_yet, null=False)
     furniture_notes = models.TextField(blank=True, null=False)
     utilisation = models.CharField(max_length=50, choices=UtilisationChoices.choices, null=False) #former "status" in PG
-    utilisation_status = models.CharField(max_length=50, choices=UtilisationStatus.choices, null=False) #former "status" in PG
+    utilisation_status = models.CharField(max_length=50, choices=UtilisationStatusChoices.choices, null=False) #former "status" in PG
     address = models.CharField(max_length=100, null=False)
     municipality = models.CharField(max_length=50, null=False)
     zip_code = models.PositiveIntegerField(validators=[MaxValueValidator(99999)], null=False)
@@ -61,7 +61,7 @@ class PropertyModel(models.Model):
     #tenant = #from tenants
     #rent duration & renewal
 
-class ProperyUtilityModel(models.Model):
+class ProperyUtility(models.Model):
 
     water_registry_no = models.CharField(max_length=20, null=False, blank=True)
     water_meter = models.CharField(max_length=20, null=False, blank=True)
@@ -78,7 +78,7 @@ class ProperyUtilityModel(models.Model):
     lng_username = models.CharField(max_length=50, null=False, blank=True)
     lng_password = models.CharField(max_length=50, null=False, blank=True)
 
-class PropertyManagerModel(models.Model):
+class PropertyManager(models.Model):
 
     manager_name = models.CharField(max_length=50, null=False, blank=True)
     manager_phone = models.CharField(max_length=25, null=False, blank=True)

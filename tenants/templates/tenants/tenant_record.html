@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Client: {{ record.last_name }} {{ record.first_name }}
+{% endblock title %}
+
+{% block content %}
+
+<div class="card"  style="width:50%; margin: auto;">
+    <div class="card-header">
+      <h3>{{ record.last_name }} {{ record.first_name }}</h3>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Tenant's information:</h5><br/>
+      <p class="card-text">
+        <strong>Phone Number:</strong> <a href="tel:{{ record.phone }}">{{ record.phone }}</a><br/>
+      </p>
+      <p class="card-text">
+        <strong>Email:</strong> <a href="mailto:{{ record.email }}">{{ record.email }}</a><br/>
+      </p>
+      <p class="card-text">
+        <strong>Father's Name:</strong> {{ record.fathers_name }}<br/>
+      </p>
+      <p class="card-text">
+        <strong>Tax ID Number:</strong> {{ record.tax_id }}<br/>
+      </p>
+      {% if record.tax_office %}
+      <p class="card-text">
+        <strong>Tax Office:</strong> {{ record.tax_office }}<br/>
+      </p>
+      {% endif %}
+      <p class="card-text">
+        <strong>{% if record.id_type == "Id Card" %}ID Card Number:{% else %}Passport Number:{% endif %}</strong> {{ record.id_number }}<br/>
+      </p>
+      <p class="card-text">
+        <strong>Registered:</strong> {{ record.created_at }}<br/>
+      </p>
+      <p class="card-text">
+        <strong>Status:</strong><strong style="color:{% if record.is_active == True %}green{% else %}brown{% endif %};">{% if record.is_active == True %} Active {% else %} Inactive {% endif %}</strong><br/>
+      </p>
+        {% if record.is_blacklisted %}
+        <p style="color:red;"><strong>BLACKLISTED</strong></p>
+        {% endif %}
+      </p>
+      <a href="#" class="btn btn-info">Edit</a>
+    </div>
+    <a href="{% url 'all_tenants' %}" class="btn btn-secondary">Back to All Tenants</a>
+  </div>
+{% endblock content %}
