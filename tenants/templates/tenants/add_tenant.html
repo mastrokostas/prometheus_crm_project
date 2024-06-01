@@ -11,10 +11,15 @@ New Tenant
 
 <form method="POST" action="{% url 'add_tenant' %}">
     {% csrf_token %}
-    {{ form.as_p }}
+    {% comment %} {{ form.as_p }} {% endcomment %}
+    {% for field in form %}
+        <label class="required" style="color:red; font-size:10px;" for="{{ field.auto_id }}">{{ field.label }}</label>
+        {{ field }}
+    {% endfor %}
+    <br/>
     <br/>
     <button type="submit" class="btn btn-success">
-        Save
+        Save New Tenant
     </button>
     <a href="{% url 'all_tenants' %}" class="btn btn-danger">Cancel</a>
 

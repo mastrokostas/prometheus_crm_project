@@ -21,7 +21,7 @@ class Tenant(models.Model):
     tax_office = models.CharField(max_length=100, blank=True, null=False)
     id_type = models.CharField(max_length=30, choices=ID_CHOICES, null=False)
     id_number = models.CharField(max_length=50, null=False)
-    is_active = models.BooleanField(default=True, null=False)
+    is_active = models.BooleanField(default=False, null=False)
     is_blacklisted = models.BooleanField(default=False, null=False)
 
     def __str__(self):
