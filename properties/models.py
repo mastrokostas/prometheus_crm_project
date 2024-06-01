@@ -30,6 +30,7 @@ class PropertyModel(models.Model):
 
 
     created_at = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     #last_modified_by = #from users
     property_id = models.PositiveIntegerField(null=False, unique=True)
     buying_contract_date = models.DateField(null=False) #by date
@@ -58,7 +59,7 @@ class PropertyModel(models.Model):
     management_fee = models.DecimalField(max_digits=20, decimal_places=2, null=False)
     actual_rent = models.DecimalField(max_digits=20, decimal_places=2, null=False)
     #tenant = #from tenants
-    
+    #rent duration & renewal
 
 class ProperyUtilityModel(models.Model):
 
