@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+New Tenant
+{% endblock title %}
+
+{% block content %}
+<h1>New Tenant</h1>
+<br/>
+
+<form method="POST" action="{% url 'add_tenant' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <br/>
+    <button type="submit" class="btn btn-success">
+        Save
+    </button>
+    <a href="{% url 'all_tenants' %}" class="btn btn-danger">Cancel</a>
+
+
+</form>
+
+{% endblock content %}
