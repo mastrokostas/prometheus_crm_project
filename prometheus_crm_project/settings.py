@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'tenants',
     'users',
     'home',
+    'landlords',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
