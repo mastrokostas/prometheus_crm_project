@@ -9,6 +9,12 @@ class Tenant(models.Model):
         "passport" : "Passport",
     }
 
+    NATIONALITY_CHOICES = {
+        "GR" : "Greek",
+        "UK" : "British",
+    }
+
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     first_name = models.CharField(max_length=100, null=False)
@@ -23,6 +29,7 @@ class Tenant(models.Model):
     id_number = models.CharField(max_length=50, null=False)
     is_active = models.BooleanField(default=False, null=False)
     is_blacklisted = models.BooleanField(default=False, null=False)
+    nationality = models.CharField(max_length=50, choices=NATIONALITY_CHOICES, null=False)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"

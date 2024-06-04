@@ -39,6 +39,9 @@ Tenant: {{ record.last_name }} {{ record.first_name }}
         <strong>{% if record.id_type == "Id Card" %}ID Card Number:{% else %}Passport Number:{% endif %}</strong> {{ record.id_number }}<br/>
       </p>
       <p class="card-text">
+        <strong>Nationality:</strong> {{ record.nationality }}<br/>
+      </p>
+      <p class="card-text">
         <strong>Registered:</strong> {{ record.created_at }}<br/>
       </p>
       <p class="card-text">

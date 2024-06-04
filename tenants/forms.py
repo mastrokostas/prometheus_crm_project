@@ -8,6 +8,11 @@ ID_CHOICES = {
         "passport" : "Passport",
     }
 
+NATIONALITY_CHOICES = {
+        "GR" : "Greek",
+        "UK" : "British",
+    }
+
 class AddTenantForm(forms.ModelForm):
     
     first_name = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"First Name", "class":"form-control"}), label="*Required")
@@ -20,6 +25,7 @@ class AddTenantForm(forms.ModelForm):
     tax_office = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Tax Office", "class":"form-control"}), label="")
     id_type = forms.CharField(required=True, widget=forms.Select(attrs={"class":"form-control"}, choices=ID_CHOICES), label="Identification Type, *Required Choice")
     id_number = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"ID or Passport Number", "class":"form-control"}), label="*Required")
+    nationality = forms.CharField(required=True, widget=forms.Select(attrs={"class":"form-control"}, choices=NATIONALITY_CHOICES), label="Nationality, *Required Choice")
 
     class Meta:
         model = Tenant
