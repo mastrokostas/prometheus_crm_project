@@ -29,6 +29,7 @@ class Tenant(models.Model):
     id_number = models.CharField(max_length=50, null=False)
     nationality = models.CharField(max_length=50, choices=NATIONALITY_CHOICES, null=False)
     is_active = models.BooleanField(default=False, null=False)
+    legal_action = models.BooleanField(default=False, null=False)
     is_blacklisted = models.BooleanField(default=False, null=False)
     notes = models.TextField(blank=True, null=False)
 
