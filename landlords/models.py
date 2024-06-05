@@ -22,6 +22,11 @@ class Landlord(models.Model):
         "NONE" : "NONE",
     }
 
+    LAW_FIRM_CHOICES = {
+        "K/P" : "K/P",
+        "KMD" : "KMD",
+    }
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     file_type = models.CharField(max_length=2, choices=FILE_TYPE_CHOICES, null=False)
@@ -37,10 +42,14 @@ class Landlord(models.Model):
     passport_number = models.CharField(max_length=50, null=False)
     passport_expiry_date = models.DateField(null=False)
     nationality = models.CharField(max_length=50, choices=NATIONALITY_CHOICES, null=False)
+    law_firm = models.CharField(max_length=50, choices=LAW_FIRM_CHOICES, null=False)
     cooperation_type = models.CharField(max_length=50, choices=COOPERATION_TYPE_CHOICES, null=False)
     is_active = models.BooleanField(default=False, null=False)
     is_blacklisted = models.BooleanField(default=False, null=False)
     notes = models.TextField(blank=True, null=False)
+
+    #accountnat
+    #law firm
 
     def __str__(self):
         return f"{self.last_name} {self.first_name}"

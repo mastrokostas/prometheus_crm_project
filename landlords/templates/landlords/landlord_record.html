@@ -33,6 +33,8 @@
             </br></br>
             <strong>Passport Expiry Date:</strong> {{ record.passport_expiry_date }}
             </br></br>
+            <strong>Law Firm:</strong> {{ record.law_firm }}
+            </br></br>
             <strong>Cooperation Type:</strong> 
             <strong style="color:{% if record.cooperation_type == "FULL" %}green{% elif record.cooperation_type == "ONLY PR" %}blue{% elif record.cooperation_type == "ONLY MANAGEMENT" %}yellow{% else %}red{% endif %};">
             {{ record.cooperation_type}}
