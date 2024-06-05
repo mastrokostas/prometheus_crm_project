@@ -6,26 +6,29 @@ from django.contrib import messages
 # Create your views here.
 
 def login_user(request):
-    # Check to see if logging in
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        #Authenticate
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            request.session.set_expiry(43200) #12 hours
-            username = request.user.username.capitalize()
-            messages.success(request, "You have been Logged in. Welcome, " + username+"!")
-            if "next" in request.POST:
-                return redirect(request.POST.get('next'))
-            else:
-                return redirect('home')
-        else:
-            messages.success(request, "There was an error logging in, please try again...")
-            return redirect('login')
+    if request.user.is_authenticated: #cannot see paged if logged in
+        return redirect('home')
     else:
-        return render(request, 'users/login.html')
+        # Check to see if logging in
+        if request.method == 'POST':
+            username = request.POST['username']
+            password = request.POST['password']
+            #Authenticate
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                request.session.set_expiry(43200) #12 hours
+                username = request.user.username.capitalize()
+                messages.success(request, "You have been Logged in. Welcome, " + username+"!")
+                if "next" in request.POST:
+                    return redirect(request.POST.get('next'))
+                else:
+                    return redirect('home')
+            else:
+                messages.success(request, "There was an error logging in, please try again...")
+                return redirect('login')
+        else:
+            return render(request, 'users/login.html')
 
 
 @login_required(login_url= 'login')

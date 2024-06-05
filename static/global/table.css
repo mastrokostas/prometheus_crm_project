@@ -3,6 +3,10 @@ a {
     text-decoration: none;
 }
 
+table {
+    text-align: center;
+}
+
 .tableFixHead{ 
     overflow: auto; height: 400px;
 }

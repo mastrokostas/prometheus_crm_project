@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.validators import MaxValueValidator
 
+from landlords.models import Landlord
+
 # Create your models here.
 
 
@@ -26,16 +28,18 @@ class Property(models.Model):
     class UtilisationStatusChoices(models.TextChoices):
         rented = "Rented"
         vacant = "Vacant"
-        remove = "Remove From Market"
+        remove_from_market = "Remove From Market"
 
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    #last_modified_by = #from users
+    
+    owner_1 = models.ForeignKey(Landlord, null=True, on_delete=models.PROTECT, related_name="property_owner_1")
+    owner_2 = models.ForeignKey(Landlord, null=True, blank=True, on_delete=models.PROTECT, related_name="property_owner_2")
+
     property_id = models.PositiveIntegerField(null=False, unique=True)
     buying_contract_date = models.DateField(null=False) #by date
     selling_contract_date = models.DateField(null=False) #by date
-    works_needed = models.BooleanField(default=False, null=False)
     #technician = #from sub-contructors
     works_progress = models.CharField(max_length=50, choices=ProgressChoices.choices, default=ProgressChoices.completed, null=False)
     works_notes = models.TextField(blank=True, null=False)
@@ -44,22 +48,28 @@ class Property(models.Model):
     furniture_progress = models.CharField(max_length=50, choices=ProgressChoices.choices, default=ProgressChoices.not_started_yet, null=False)
     furniture_notes = models.TextField(blank=True, null=False)
     utilisation = models.CharField(max_length=50, choices=UtilisationChoices.choices, null=False) #former "status" in PG
-    utilisation_status = models.CharField(max_length=50, choices=UtilisationStatusChoices.choices, null=False) #former "status" in PG
+    utilisation_status = models.CharField(max_length=50, choices=UtilisationStatusChoices.choices, null=False, blank=True) #former "status" in PG
     address = models.CharField(max_length=100, null=False)
     municipality = models.CharField(max_length=50, null=False)
     zip_code = models.PositiveIntegerField(validators=[MaxValueValidator(99999)], null=False)
     floor = models.SmallIntegerField(null=False)
     apartment_no = models.CharField(max_length=10, null=False)
-    #owner = #from landlords
-    under_rg = models.BooleanField(default=True, null=False)
-    rg_ammount = models.DecimalField(max_digits=20, decimal_places=2, null=False)
-    rg_percentage = models.PositiveIntegerField(validators=[MaxValueValidator(100)], null=False)
-    rg_starting = models.DateField(null=False)
-    rg_ending = models.DateField(null=False)
-    management_fee = models.DecimalField(max_digits=20, decimal_places=2, null=False)
-    actual_rent = models.DecimalField(max_digits=20, decimal_places=2, null=False)
+    surface = models.PositiveSmallIntegerField(null=False)
+    under_rental_guarantee = models.BooleanField(default=False, null=False)
+    rg_ammount = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=False)
+    rg_percentage = models.PositiveIntegerField(validators=[MaxValueValidator(100)], blank=True, null=False)
+    rg_starting = models.DateField(null=False, blank=True)
+    rg_ending = models.DateField(null=False, blank=True)
+    management_fee = models.DecimalField(max_digits=20, decimal_places=2, null=False, blank=True)
+    #actual_rent = models.DecimalField(max_digits=20, decimal_places=2, null=False)
     #tenant = #from tenants
     #rent duration & renewal
+
+    class Meta:
+        verbose_name_plural = "Properties"
+
+    def __str__(self):
+        return f"{self.address} {self.municipality}"
 
 class ProperyUtility(models.Model):
 
@@ -78,7 +88,7 @@ class ProperyUtility(models.Model):
     lng_username = models.CharField(max_length=50, null=False, blank=True)
     lng_password = models.CharField(max_length=50, null=False, blank=True)
 
-class PropertyManager(models.Model):
+class PropertyBuildingManager(models.Model):
 
     manager_name = models.CharField(max_length=50, null=False, blank=True)
     manager_phone = models.CharField(max_length=25, null=False, blank=True)
