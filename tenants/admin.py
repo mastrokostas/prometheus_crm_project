@@ -5,7 +5,7 @@ from .models import Tenant
 # Register your models here.
 
 class TenantAdmin(admin.ModelAdmin):
-    list_display = ("last_name", "first_name", "is_active", "is_blacklisted",)
+    list_display = ("last_name", "first_name", "is_active", "is_blacklisted", "updated", "created_at")
 
 admin.site.register(Tenant, TenantAdmin)
 

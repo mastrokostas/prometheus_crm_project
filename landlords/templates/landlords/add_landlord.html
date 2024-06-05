@@ -2,14 +2,14 @@
 {% load static %}
 
 {% block title %}
-New Tenant
+New Landlord
 {% endblock title %}
 
 {% block content %}
-<h1>New Tenant</h1>
+<h1>New Landlord</h1>
 <br/>
 
-<form method="POST" action="{% url 'add_tenant' %}">
+<form method="POST" action="{% url 'add_landlord' %}">
     {% csrf_token %}
     {% comment %} {{ form.as_p }} {% endcomment %}
     {% comment %} replaced by field {% endcomment %}
@@ -20,9 +20,9 @@ New Tenant
     <br/>
     <br/>
     <button type="submit" class="btn btn-success">
-        Save New Tenant
+        Save New Landlord
     </button>
-    <a href="{% url 'all_tenants' %}" class="btn btn-danger">Cancel</a>
+    <a href="{% url 'all_landlords' %}" class="btn btn-danger">Cancel</a>
 
 
 </form>
