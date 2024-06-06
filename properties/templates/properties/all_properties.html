@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block css_files %}
-    <link rel="stylesheet" href="{% static "global/table.css" %}">
+    <link rel="stylesheet" href="{% static "global/global.css" %}">
 {% endblock css_files %}
 
 {% block title %}
@@ -20,7 +20,7 @@ All Properties
         <thead>
           <tr>
             <th scope="col">File no.</th>
-            <th scope="col">ID</th>
+            <th scope="col">Property ID</th>
             <th scope="col">Address</th>
             <th scope="col">Apartment No.</th>
             <th scope="col">Utilisation</th>
@@ -54,4 +54,5 @@ All Properties
         </tbody>
     </table>    
 </div>
+<a href="{% url "add_property" %}" class="btn btn-success">Add Property</a>
 {% endblock content %}

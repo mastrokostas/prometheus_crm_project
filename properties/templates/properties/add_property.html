@@ -2,28 +2,28 @@
 {% load static %}
 
 {% block title %}
-New Tenant
+New Property
 {% endblock title %}
 
 {% block content %}
-<h1>New Tenant</h1>
+<h1>New Property</h1>
 <br/>
 
-<form method="POST" action="{% url 'add_tenant' %}">
+<form method="POST" action="{% url 'add_property' %}">
     {% csrf_token %}
     {% comment %} {{ form.as_p }} {% endcomment %}
     {% comment %} replaced by field {% endcomment %}
     {% for field in form %}
-        <label class="required" style="{% if field.field.required == True %}color:red;{% endif %}" for="{{ field.auto_id }}">{{ field.label }}</label>
+        <label class="required" {% if field.field.required == True %} style="color:red;"{% endif %} for="{{ field.auto_id }}">{{ field.label }}</label>
         {{ field }}
         </br>
     {% endfor %}
     <br/>
     <br/>
     <button type="submit" class="btn btn-success">
-        Save New Tenant
+        Save New Property
     </button>
-    <a href="{% url 'all_tenants' %}" class="btn btn-danger">Cancel</a>
+    <a href="{% url 'all_properties' %}" class="btn btn-danger">Cancel</a>
 
 
 </form>

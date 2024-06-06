@@ -4,7 +4,7 @@ from django.core.validators import MaxValueValidator
 from landlords.models import Landlord
 
 # Create your models here.
-
+    
 
 class Property(models.Model):
 
@@ -19,6 +19,7 @@ class Property(models.Model):
         no_furniture = "No Furniture"
 
     class UtilisationChoices(models.TextChoices):
+        undecided = "Not Decided Yet"
         long_term = "Long-Term Rental"
         short_term = "Short-Term Rental"
         managed_closed = "Managed - Not For Rent"
@@ -26,6 +27,7 @@ class Property(models.Model):
         no_management = "Not Managed"
         
     class UtilisationStatusChoices(models.TextChoices):
+        none = "None"
         rented = "Rented"
         vacant = "Vacant"
         remove_from_market = "Remove From Market"
@@ -38,6 +40,12 @@ class Property(models.Model):
     owner_2 = models.ForeignKey(Landlord, null=True, blank=True, on_delete=models.PROTECT, related_name="property_owner_2")
 
     property_id = models.PositiveIntegerField(null=False, unique=True)
+    address = models.CharField(max_length=100, null=False)
+    municipality = models.CharField(max_length=50, null=False)
+    zip_code = models.PositiveIntegerField(validators=[MaxValueValidator(99999)], null=False)
+    floor = models.SmallIntegerField(null=False)
+    apartment_no = models.CharField(max_length=10, null=False)
+    surface = models.DecimalField(max_digits=10, decimal_places=2, null=False)
     buying_contract_date = models.DateField(null=False) #by date
     selling_contract_date = models.DateField(null=False) #by date
     #technician = #from sub-contructors
@@ -49,18 +57,14 @@ class Property(models.Model):
     furniture_notes = models.TextField(blank=True, null=False)
     utilisation = models.CharField(max_length=50, choices=UtilisationChoices.choices, null=False) #former "status" in PG
     utilisation_status = models.CharField(max_length=50, choices=UtilisationStatusChoices.choices, null=False, blank=True) #former "status" in PG
-    address = models.CharField(max_length=100, null=False)
-    municipality = models.CharField(max_length=50, null=False)
-    zip_code = models.PositiveIntegerField(validators=[MaxValueValidator(99999)], null=False)
-    floor = models.SmallIntegerField(null=False)
-    apartment_no = models.CharField(max_length=10, null=False)
-    surface = models.PositiveSmallIntegerField(null=False)
-    under_rental_guarantee = models.BooleanField(default=False, null=False)
-    rg_ammount = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=False)
-    rg_percentage = models.PositiveIntegerField(validators=[MaxValueValidator(100)], blank=True, null=False)
-    rg_starting = models.DateField(null=False, blank=True)
-    rg_ending = models.DateField(null=False, blank=True)
-    management_fee = models.DecimalField(max_digits=20, decimal_places=2, null=False, blank=True)
+
+    under_rental_guarantee = models.BooleanField(default=False, null=True)
+    rg_ammount = models.DecimalField(max_digits=20, decimal_places=2, null=True)
+    rg_percentage = models.PositiveIntegerField(validators=[MaxValueValidator(100)], null=True)
+    rg_starting = models.DateField(null=True)
+    rg_ending = models.DateField(null=True)
+
+    management_fee = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
     #actual_rent = models.DecimalField(max_digits=20, decimal_places=2, null=False)
     #tenant = #from tenants
     #rent duration & renewal
@@ -70,6 +74,8 @@ class Property(models.Model):
 
     def __str__(self):
         return f"{self.address} {self.municipality}"
+    
+
 
 class ProperyUtility(models.Model):
 

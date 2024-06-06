@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block css_files %}
+    <link rel="stylesheet" href="{% static "global/global.css" %}">
+{% endblock css_files %}
+
 {% block title %}
 {{ record.file_type }}.{{ record.file_number }}: {{ record.last_name }} {{ record.first_name }}
 {% endblock title %}
@@ -73,7 +77,10 @@
       </h2>
       <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
         <div class="accordion-body">
-          <strong>Insert Properties owned here.</strong>
+          {% for property in properties_owned %}
+          <strong><a href="{% url "property_record" property.id %}">{{ property.property_id }}, {{ property }}, Floor: {{ property.floor }}, Apartment: {{ property.apartment_no }}</a></strong>
+        </br>
+          {% endfor %}
         </div>
       </div>
     </div>
@@ -91,6 +98,6 @@
     </div>
 </div>
 </br>
-<a href="{% url "edit_landlord" record.id %}" class="btn btn-info">Edit</a>
+<a href="{% url "edit_landlord" record.id %}" class="btn btn-info">Edit Landlord</a>
 <a href="{% url "all_landlords" %}" class="btn btn-secondary">Back to All Landlords</a>
 {% endblock content %}

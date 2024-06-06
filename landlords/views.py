@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.db.models import Q
 
 from .models import Landlord
+from properties.models import Property
 from .forms import AddLandlordForm, EditLandlordForm
 
 # Create your views here.
@@ -17,7 +19,8 @@ def all_landlords(request):
 @login_required(login_url='login')
 def landlord_record(request, pk):
     record = Landlord.objects.get(id=pk)
-    return render(request, 'landlords/landlord_record.html', {'record': record})
+    properties_owned = Property.objects.filter(Q(owner_1=record) | Q(owner_2=record))
+    return render(request, 'landlords/landlord_record.html', {'record': record, 'properties_owned':properties_owned})
 
 
 @login_required(login_url='login')

@@ -1,6 +1,14 @@
 a {
     color:black;
     text-decoration: none;
+    
+}
+
+a:hover{
+    color:#008080;
+    /* Teal color name */
+    text-decoration: none;
+    font-weight: none;
 }
 
 table {

@@ -51,7 +51,7 @@ Tenant: {{ record.last_name }} {{ record.first_name }}
         <p style="color:red;"><strong>BLACKLISTED</strong></p>
         {% endif %}
       </p>
-      <a href="{% url "edit_tenant" record.id %}" class="btn btn-info">Edit</a>
+      <a href="{% url "edit_tenant" record.id %}" class="btn btn-info">Edit Tenant</a>
     </div>
     <a href="{% url "all_tenants" %}" class="btn btn-secondary">Back to All Tenants</a>
   </div>

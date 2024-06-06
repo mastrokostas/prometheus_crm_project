@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}
+Edit Property
+{% endblock title %}
+
+{% block content %}
+<h1>Edit Property Page</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    {% for field in form %}
+        <label class="required" {% if field.field.required == True %} style="color:red;"{% endif %} for="{{ field.auto_id }}">{{ field.label }}</label>
+        {{ field }}
+        </br>
+    {% endfor %}
+    <br/>
+    <button type="submit" class="btn btn-success">
+        Update Record
+    </button>
+    <a href="{% url "property_record" record.id %}" class="btn btn-danger">Cancel</a>
+    <a href="{% url "all_properties" %}" class="btn btn-secondary">Cancel and Back to All Properties</a>
+</form>
+
+{% endblock content %}

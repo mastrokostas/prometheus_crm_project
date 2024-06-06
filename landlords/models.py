@@ -52,4 +52,4 @@ class Landlord(models.Model):
     #law firm
 
     def __str__(self):
-        return f"F.{self.file_number} {self.last_name} {self.first_name}"
+        return f"{self.file_type}.{self.file_number} {self.last_name} {self.first_name}"
