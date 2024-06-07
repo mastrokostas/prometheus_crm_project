@@ -1,6 +1,7 @@
 from django import forms
 
 from .models import Landlord
+from collaborators.models import Legal
 
 NATIONALITY_CHOICES = {
         "CN" : "CN",
@@ -20,11 +21,6 @@ COOPERATION_TYPE_CHOICES = {
         "NONE" : "NONE",
     }
 
-LAW_FIRM_CHOICES = {
-        "K/P" : "K/P",
-        "KMD" : "KMD",
-    }
-
 class AddLandlordForm(forms.ModelForm):
     file_type = forms.CharField(required=True, widget=forms.Select(attrs={"class":"form-control"}, choices=FILE_TYPE_CHOICES), label="File Type, *Required Choice")
     file_number = forms.IntegerField(required=True, min_value=0, widget=forms.NumberInput(attrs={"class":"form-control"}), label="File Number, *Required Choice")
@@ -37,7 +33,7 @@ class AddLandlordForm(forms.ModelForm):
     tax_id = forms.IntegerField(required=True, widget=forms.widgets.NumberInput(attrs={"placeholder":"Tax ID Number", "class":"form-control"}), label="*Required")
     tax_office = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Tax Office", "class":"form-control"}), label="")
     nationality = forms.CharField(required=True, widget=forms.Select(attrs={"class":"form-control"}, choices=NATIONALITY_CHOICES), label="Nationality, *Required Choice")
-    law_firm = forms.CharField(required=True, widget=forms.Select(attrs={"class":"form-control"}, choices=LAW_FIRM_CHOICES), label="Law Firm, *Required Choice")
+    law_firm = forms.ModelChoiceField(required=True, queryset=Legal.objects.all(), widget=forms.Select(attrs={"class":"form-control"}), label="Law Firm, *Required Choice")
     passport_number = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"ID or Passport Number", "class":"form-control"}), label="*Required")
     passport_expiry_date = forms.DateField(required=True, widget=forms.widgets.DateInput(attrs={"type":"date", "class":"form-control"}), label="Date, *Required Choice")
     cooperation_type = forms.CharField(required=True, widget=forms.Select(attrs={"class":"form-control"}, choices=COOPERATION_TYPE_CHOICES), label="Cooperation Type, *Required Choice")
