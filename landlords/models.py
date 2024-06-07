@@ -31,8 +31,8 @@ class Landlord(models.Model):
     first_name = models.CharField(max_length=100, null=False)
     last_name = models.CharField(max_length=100, null=False)
     fathers_name = models.CharField(max_length=100, blank=True, null=False)
-    phone = models.IntegerField(blank=True, null=True)
-    phone_2 = models.IntegerField(blank=True, null=True)
+    phone = models.PositiveIntegerField(blank=True, null=True)
+    phone_2 = models.PositiveIntegerField(blank=True, null=True)
     email = models.EmailField(blank= True, null=False)
     tax_id = models.PositiveIntegerField(null=False, unique=True)
     tax_office = models.CharField(max_length=100, blank=True, null=False)
@@ -40,7 +40,7 @@ class Landlord(models.Model):
     passport_expiry_date = models.DateField(null=False)
     nationality = models.CharField(max_length=50, choices=NATIONALITY_CHOICES, null=False)
 
-    law_firm = models.ForeignKey(Legal, null=True, on_delete=models.PROTECT, related_name="legal_team")  
+    law_firm = models.ForeignKey(Legal, null=False, on_delete=models.PROTECT, related_name="legal_team")  
     
     cooperation_type = models.CharField(max_length=50, choices=COOPERATION_TYPE_CHOICES, null=False)
     is_active = models.BooleanField(default=False, null=False)

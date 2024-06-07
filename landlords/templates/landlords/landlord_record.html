@@ -77,10 +77,14 @@
       </h2>
       <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
         <div class="accordion-body">
+          {% if properties_owned %}
           {% for property in properties_owned %}
           <strong><a href="{% url "property_record" property.id %}">{{ property.property_id }}, {{ property }}, Floor: {{ property.floor }}, Apartment: {{ property.apartment_no }}</a></strong>
-        </br>
+          </br>
           {% endfor %}
+          {% else %}
+          <strong>No Properties to Show</strong> 😢
+          {% endif %}
         </div>
       </div>
     </div>
