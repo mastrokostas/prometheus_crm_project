@@ -119,7 +119,19 @@ Property record
       </h2>
       <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
         <div class="accordion-body">
-          <strong>Insert Construction Status here.</strong>
+          <strong>Works Progress:</strong> {{ record.works_progress }}
+        </div>
+        <div class="accordion-body">
+          <strong>Works Notes:</strong> {{ record.works_notes }}
+        </div>
+        <div class="accordion-body">
+          <strong>Furniture Needed:</strong> {{ record.furniture_needed }}
+        </div>
+        <div class="accordion-body">
+          <strong>Furniture Progress:</strong> {{ record.furniture_progress }}
+        </div>
+        <div class="accordion-body">
+          <strong>Furniture Notes:</strong> {{ record.furniture_notes }}
         </div>
       </div>
     </div>

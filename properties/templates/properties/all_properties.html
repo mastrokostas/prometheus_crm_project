@@ -41,9 +41,11 @@ All Properties
                     <td style="color:{% if property.utilisation == "Long-Term Rental" %}green{% elif property.utilisation == "Short-Term Rental" %}purple{% elif property.utilisation == "Not Managed" %}red{% else %}blue{% endif %};">
                         {{ property.utilisation }}
                     </td>
-                    <td>{{ property.utilisation_status }}</td>
+                    <td style="color:{% if property.utilisation_status == "Rented" %}green{% elif property.utilisation_status ==  "Vacant" %}orange{% elif property.utilisation_status == "None" %}grey{% else %}red{% endif %};">
+                        {{ property.utilisation_status }}
+                    </td>
                     {% if property.under_rental_guarantee == True %}
-                    <td style="color:red;">{{ property.rg_ammount }}
+                    <td style="color:red;">{{ property.rg_ammount }} €
                     {% else %}
                     <td style="color:grey;">NO                      
                     {% endif %}

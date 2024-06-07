@@ -35,6 +35,23 @@ class AddPropertyForm(forms.ModelForm):
     # #tenant = #from tenants
     # #rent duration & renewal
 
+    # # Utilities
+
+    water_registry_no = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Water Registry Number", "class":"form-control",}), label="")
+    water_meter = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Water Meter", "class":"form-control",}), label="")
+    water_username = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"EDYAP Username", "class":"form-control",}), label="")
+    water_password = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"EYDAP Password", "class":"form-control",}), label="")
+    #electricity_provider = 
+    electricity_utility_no = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Electricity Utility Number", "class":"form-control",}), label="")
+    electricity_meter = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Electricity Meter", "class":"form-control",}), label="")
+    electricity_username = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Electricity Username", "class":"form-control",}), label="")
+    electricity_password = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Electricity Number", "class":"form-control",}), label="")
+    #lng_provider =
+    lng_utility_no = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Natural Gas Utility Number", "class":"form-control",}), label="")
+    lng_meter = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Natural Gas Meter", "class":"form-control",}), label="")
+    lng_username = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Natural Gas Username", "class":"form-control",}), label="")
+    lng_password = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Natural Gas Password", "class":"form-control",}), label="")
+
     class Meta:
         model = Property
         exclude = [
@@ -72,6 +89,23 @@ class EditPropertyForm(forms.ModelForm):
     # #actual_rent = models.DecimalField(max_digits=20, decimal_places=2, null=False)
     # #tenant = #from tenants
     # #rent duration & renewal 
+
+    # # Utilities
+
+    water_registry_no = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Water Registry Number", "class":"form-control",}), label="")
+    water_meter = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Water Meter", "class":"form-control",}), label="")
+    water_username = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"EDYAP Username", "class":"form-control",}), label="")
+    water_password = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"EYDAP Password", "class":"form-control",}), label="")
+    #electricity_provider = 
+    electricity_utility_no = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Electricity Utility Number", "class":"form-control",}), label="")
+    electricity_meter = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Electricity Meter", "class":"form-control",}), label="")
+    electricity_username = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Electricity Username", "class":"form-control",}), label="")
+    electricity_password = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Electricity Number", "class":"form-control",}), label="")
+    #lng_provider =
+    lng_utility_no = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Natural Gas Utility Number", "class":"form-control",}), label="")
+    lng_meter = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Natural Gas Meter", "class":"form-control",}), label="")
+    lng_username = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Natural Gas Username", "class":"form-control",}), label="")
+    lng_password = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Natural Gas Password", "class":"form-control",}), label="")
 
     class Meta:
         model = Property

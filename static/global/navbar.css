@@ -1,0 +1,16 @@
+.dropdown-menu > li > a:hover {
+    background-image: none;
+    background-color: #008080;
+}
+
+.nav-link:hover {
+    color:#008080;
+}
+
+.hoverable:hover {
+    color:#008080;
+}
+
+.white {
+    color: white;
+}

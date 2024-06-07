@@ -69,16 +69,7 @@ class Property(models.Model):
     #tenant = #from tenants
     #rent duration & renewal
 
-    class Meta:
-        verbose_name_plural = "Properties"
-
-    def __str__(self):
-        return f"{self.address} {self.municipality}"
-    
-
-
-class ProperyUtility(models.Model):
-
+    ## Utilities
     water_registry_no = models.CharField(max_length=20, null=False, blank=True)
     water_meter = models.CharField(max_length=20, null=False, blank=True)
     water_username = models.CharField(max_length=50, null=False, blank=True)
@@ -93,6 +84,13 @@ class ProperyUtility(models.Model):
     lng_meter = models.CharField(max_length=50, null=False, blank=True)
     lng_username = models.CharField(max_length=50, null=False, blank=True)
     lng_password = models.CharField(max_length=50, null=False, blank=True)
+
+    class Meta:
+        verbose_name_plural = "Properties"
+
+    def __str__(self):
+        return f"{self.address} {self.municipality}"
+    
 
 class PropertyBuildingManager(models.Model):
 
