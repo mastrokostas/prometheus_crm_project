@@ -11,6 +11,13 @@ a:hover{
     font-weight: none;
 }
 
+a:active{
+    color:#98AFC7;
+    /* Metalic Silver color name */
+    text-decoration: none;
+    font-weight: none;
+}
+
 table {
     text-align: center;
 }

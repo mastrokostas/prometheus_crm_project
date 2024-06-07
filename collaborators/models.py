@@ -68,7 +68,7 @@ class SubContractor(models.Model):
     company_phone = models.CharField(max_length=50, null=False, blank=True)
 
     class Meta:
-        verbose_name_plural = "Subcontractors"
+        verbose_name_plural = "Sub-contractors"
 
     def __str__(self):
         return f"{self.company_name}"
@@ -89,3 +89,16 @@ class FurnitureProvider(models.Model):
 
     def __str__(self):
         return f"{self.company_name}"
+    
+class BuildingManagementCompany(models.Model):
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    company_name = models.CharField(max_length=50, null=False) 
+    company_address = models.CharField(max_length=50, null=False, blank=True)
+    company_municipality = models.CharField(max_length=50, null=False, blank=True)
+    company_zip_code = models.PositiveIntegerField(validators=[MaxValueValidator(99999)], null=True, blank=True)
+    company_phone = models.CharField(max_length=50, null=False, blank=True)
+    designated_person_first_name = models.CharField(max_length=50, null=False, blank=True)
+    designated_person_last_name = models.CharField(max_length=50, null=False, blank=True)

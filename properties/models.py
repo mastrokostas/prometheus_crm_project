@@ -32,6 +32,10 @@ class Property(models.Model):
         vacant = "Vacant"
         remove_from_market = "Remove From Market"
 
+    class ConstructedByChoises(models.TextChoices):
+        us = "Us"
+        not_us = "Not Us"
+
     ## Auto Fill
     created_at = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -52,11 +56,12 @@ class Property(models.Model):
     selling_contract_date = models.DateField(null=False) #by date
 
     ## Construction
+    constructed_by = models.CharField(max_length=30, choices=ConstructedByChoises.choices, null=False)
     sub_contractor = models.ForeignKey(SubContractor, null=True, on_delete=models.PROTECT, related_name="sub_contractor")
     works_progress = models.CharField(max_length=50, choices=ProgressChoices.choices, default=ProgressChoices.completed, null=False)
     works_notes = models.TextField(blank=True, null=False)
 
-    # Furnishing
+    ## Furnishing
     furniture_needed = models.CharField(max_length=50, choices=FurnitureChoices.choices, default=FurnitureChoices.full, null=False)
     funiture_provider = models.ForeignKey(FurnitureProvider, null=True, on_delete=models.PROTECT, related_name="furniture_provider")
     furniture_progress = models.CharField(max_length=50, choices=ProgressChoices.choices, default=ProgressChoices.not_started_yet, null=False)
@@ -68,12 +73,20 @@ class Property(models.Model):
 
     ## Rental Guarantee
     under_rental_guarantee = models.BooleanField(default=False, null=True)
-    rg_ammount = models.DecimalField(max_digits=20, decimal_places=2, null=True)
-    rg_percentage = models.PositiveIntegerField(validators=[MaxValueValidator(100)], null=True)
-    rg_starting = models.DateField(null=True)
-    rg_ending = models.DateField(null=True)
+    rg_ammount = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
+    rg_percentage = models.PositiveIntegerField(validators=[MaxValueValidator(100)], null=True, blank=True)
+    rg_starting = models.DateField(null=True, blank=True)
+    rg_ending = models.DateField(null=True, blank=True)
 
+    ## Management
     management_fee = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
+    # building_management_company -> foreign key from collaborators
+    building_manager_first_name = models.CharField(max_length=100, null=False, blank=True)
+    building_manager_last_name = models.CharField(max_length=100, null=False, blank=True)
+    building_manager_phone = models.IntegerField(null=False, blank=True)
+    building_manager_apt = models.CharField(max_length=10, null=False, blank=True)
+
+
     #actual_rent = models.DecimalField(max_digits=20, decimal_places=2, null=False)
     #tenant = #from tenants
     #rent duration & renewal

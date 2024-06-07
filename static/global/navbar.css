@@ -11,6 +11,14 @@
     color:#008080;
 }
 
+.hoverable:active {
+    color:#98AFC7;
+}
+
 .white {
     color: white;
+}
+
+.white:active {
+    color:#98AFC7;
 }
