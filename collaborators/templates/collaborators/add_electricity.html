@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+New Electricity Company
+{% endblock title %}
+
+{% block content %}
+<h1>New Electricity Company</h1>
+<br/>
+
+<form method="POST" action="{% url 'add_electricity' %}">
+    {% csrf_token %}
+    {% comment %} {{ form.as_p }} {% endcomment %}
+    {% comment %} replaced by field {% endcomment %}
+    {% for field in form %}
+        <label class="required" style="{% if field.field.required == True %}color:red;{% endif %}" for="{{ field.auto_id }}">{{ field.label }}</label>
+        {{ field }}
+        </br>
+    {% endfor %}
+    <br/>
+    <br/>
+    <button type="submit" class="btn btn-success">
+        Save New Electricity Company
+    </button>
+    <a href="{% url 'electricity' %}" class="btn btn-danger">Cancel</a>
+</form>
+
+{% endblock content %}
