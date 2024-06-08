@@ -43,6 +43,14 @@ form {
     color:#680000;
 }
 
+.login {
+    text-align: center;
+}
+
+/* ::placeholder {
+    text-align: center; 
+ } */
+
 /* .form_control input:focus{
     border-color: #1f0050;
     outline: none;

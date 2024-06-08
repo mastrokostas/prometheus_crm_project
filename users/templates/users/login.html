@@ -1,32 +1,31 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static "global/forms.css" %}">
+{% endblock css_files %}
 
 {% block title %}
 User Login
 {% endblock title %}
 
 {% block content %}
-
-<div class="col-md-6 offset-md-3">
     <br/>
-    <br/>
-    <h1>Login</h1>
-    <br/>
+    <center><h1>Login</h1></center>
     <form method="POST" action="{% url 'login' %}">
         {% csrf_token %}
-        <form>
-            <div class="mb-3">
-            <input type="text" class="form-control" name="username" placeholder="Username" required>
-            </div>
-            <div class="mb-3">
-            <input type="password" class="form-control" name="password" placeholder="Password" required>
-            </div>
-            <br/>
-            {% if request.GET.next %}
-                <input type="hidden" name="next" value="{{ request.GET.next }}"/>
-            {% endif %}
-            <button type="submit" class="btn btn-secondary">Login</button>
-        </form>
+        <div class="mb-3">
+        <input type="text" class="form-control login" name="username" placeholder="Username" required>
+        </div>
+        <div class="mb-3">
+        <input type="password" class="form-control login" name="password" placeholder="Password" required>
+        </div>
+        <br/>
+        {% if request.GET.next %}
+            <input type="hidden" name="next" value="{{ request.GET.next }}"/>
+        {% endif %}
+        <center><button type="submit" class="btn btn-secondary">Login</button></center>
     </form>
-</div>
+
 
 {% endblock content %}

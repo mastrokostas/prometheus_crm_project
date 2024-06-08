@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block css_files %}
-    <link rel="stylesheet" href="{% static "global/global.css" %}">
+    <link rel="stylesheet" href="{% static "global/forms.css" %}">
 {% endblock css_files %}
 
 {% block title %}
@@ -10,15 +10,16 @@ Edit Landlord
 {% endblock title %}
 
 {% block content %}
-<h1>Edit Landlord Page</h1>
+<center><h1>Edit Landlord</h1></center>
 
 <form method="POST">
     {% csrf_token %}
     {% for field in form %}
-        <label class="required" style="{% if field.field.required == True %}color:red;{% endif %}" for="{{ field.auto_id }}">{{ field.label }}</label>
+    <div class=" form_control {% if field.errors %} errors{% endif %}">
+        <label class="{% if field.field.required == True %}required{% endif %}" for="{{ field.auto_id }}">{{ field.label }}</label>
         {{ field.errors }}
         {{ field }}        
-        </br>
+    </div>
     {% endfor %}
     <br/>
     <button type="submit" class="btn btn-success">
@@ -27,5 +28,4 @@ Edit Landlord
     <a href="{% url "landlord_record" record.id %}" class="btn btn-danger">Cancel</a>
     <a href="{% url "all_landlords" %}" class="btn btn-secondary">Cancel and Back to All Landlords</a>
 </form>
-
 {% endblock content %}
