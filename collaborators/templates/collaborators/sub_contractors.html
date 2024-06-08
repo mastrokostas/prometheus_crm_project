@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static "global/global.css" %}">
+{% endblock css_files %}
+
+{% block title %}
+Sub-Contractors
+{% endblock title %}
+
+{% block content %}
+<center><h1>Sub-Contractors</h1></center>
+</br>
+
+<div class="accordion" id="accordionExample">
+    {% for company in companies %}
+    {% if company.company_name != "NONE" %}
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button {% if forloop.counter > 2 %} collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="{% if forloop.counter > 2 %}false{% else %}true{% endif %}" aria-controls="collapse{{ forloop.counter }}">
+          {{ company.company_name }}
+        </button>
+      </h2>
+      <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse {% if forloop.counter == 2 %}show{% endif %}" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+            <strong>Address:</strong> {{ company.company_address }}
+            </br> 
+            </br>
+            <strong>Municipality:</strong> {{ company.company_municipality }}
+            </br>
+            </br>
+            <strong>Zip Code:</strong> {{ company.company_zip_code }}
+            </br>
+            </br>
+            <strong>Phone:</strong> <a href="tel:{{ company.company_phone }}">{{ company.company_phone }}</a>
+            </br>
+            </br>
+            <a href="{% url "edit_sub_contractor" company.id %}" class="btn btn-info">Edit</a>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+</br>
+<a href="{% url "add_sub_contractor" %}" class="btn btn-success">Add Sub-Contractor</a>
+{% endblock content %}

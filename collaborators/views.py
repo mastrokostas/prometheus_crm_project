@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from .models import Legal, Electricity, NaturalGas, BuildingManagementCompany
-from .forms import EditLegalForm, EditElectricityForm, EditNaturalGasForm, EditBuildingManagerForm
+from .models import Legal, Electricity, NaturalGas, BuildingManagementCompany, SubContractor
+from .forms import EditLegalForm, EditElectricityForm, EditNaturalGasForm, EditBuildingManagerForm, EditSubContractorForm
 
 # Create your views here.
 
@@ -118,3 +118,29 @@ def add_building_manager(request):
             messages.success(request, "Building Management Company Added!")
             return redirect('building_managers')
     return render(request, 'collaborators/add_building_manager.html', {'form': form})
+
+
+## Sub-Contractors
+@login_required(login_url='login')
+def sub_contractors(request):
+    companies = SubContractor.objects.all()
+    return render(request, "collaborators/sub_contractors.html", {"companies":companies})
+
+def edit_sub_contractor(request,pk):    
+    record = SubContractor.objects.get(id=pk)
+    form = EditSubContractorForm(request.POST or None, instance=record)
+    if form.is_valid():
+        form.save()
+        messages.success(request, "Sub-Contractor's information has been updated!")
+        return redirect('sub_contractors')
+    return render(request, 'collaborators/edit_sub_contractor.html', {'form': form, 'record': record})
+
+@login_required(login_url='login')
+def add_sub_contractor(request):
+    form = EditSubContractorForm(request.POST or None)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Sub-Contractor Added!")
+            return redirect('sub_contractors')
+    return render(request, 'collaborators/add_sub_contractor.html', {'form': form})

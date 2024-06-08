@@ -16,4 +16,7 @@ urlpatterns = [
     path('building_managers/', views.building_managers, name='building_managers'),
     path('edit_building_manager/<int:pk>/', views.edit_building_manager, name='edit_building_manager'),
     path('add_building_manager/', views.add_building_manager, name='add_building_manager'),
+    path('sub_contractors/', views.sub_contractors, name='sub_contractors'),
+    path('edit_sub_contractor/<int:pk>/', views.edit_sub_contractor, name='edit_sub_contractor'),
+    path('add_sub_contractor/', views.add_sub_contractor, name='add_sub_contractor'),
 ]
