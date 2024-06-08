@@ -17,8 +17,8 @@ Edit Landlord
     {% for field in form %}
     <div class=" form_control {% if field.errors %} errors{% endif %}">
         <label class="{% if field.field.required == True %}required{% endif %}" for="{{ field.auto_id }}">{{ field.label }}</label>
-        {{ field.errors }}
-        {{ field }}        
+        {{ field }}
+        {{ field.errors }}        
     </div>
     {% endfor %}
     <br/>
