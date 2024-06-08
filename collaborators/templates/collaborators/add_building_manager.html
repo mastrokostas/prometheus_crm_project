@@ -1,24 +1,29 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
-Edit Natural Gas Company
+New Building Management Company
 {% endblock title %}
 
 {% block content %}
-<h1>Edit Natural Gas Company</h1>
+<h1>New Building Management Company</h1>
+<br/>
 
-<form method="POST">
+<form method="POST" action="{% url 'add_building_manager' %}">
     {% csrf_token %}
+    {% comment %} {{ form.as_p }} {% endcomment %}
+    {% comment %} replaced by field {% endcomment %}
     {% for field in form %}
         <label class="required" style="{% if field.field.required == True %}color:red;{% endif %}" for="{{ field.auto_id }}">{{ field.label }}</label>
         {{ field }}
         </br>
     {% endfor %}
     <br/>
+    <br/>
     <button type="submit" class="btn btn-success">
-        Update Record
+        Save New Electricity Company
     </button>
-    <a href="{% url "natural_gas" %}" class="btn btn-danger">Cancel</a>
+    <a href="{% url 'building_managers' %}" class="btn btn-danger">Cancel</a>
 </form>
 
 {% endblock content %}

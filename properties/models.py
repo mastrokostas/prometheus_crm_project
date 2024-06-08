@@ -41,8 +41,8 @@ class Property(models.Model):
     updated = models.DateTimeField(auto_now=True)
     
     ## Owner
-    owner_1 = models.ForeignKey(Landlord, null=True, on_delete=models.PROTECT, related_name="property_owner_1")
-    owner_2 = models.ForeignKey(Landlord, null=True, blank=True, on_delete=models.PROTECT, related_name="property_owner_2")
+    owner_1 = models.ForeignKey(Landlord, null=True, on_delete=models.CASCADE, related_name="property_owner_1")
+    owner_2 = models.ForeignKey(Landlord, null=True, blank=True, on_delete=models.CASCADE, related_name="property_owner_2")
 
     ## Property Stuff
     property_id = models.PositiveIntegerField(null=False, unique=True)
@@ -57,13 +57,13 @@ class Property(models.Model):
 
     ## Construction
     constructed_by = models.CharField(max_length=30, choices=ConstructedByChoises.choices, null=False)
-    sub_contractor = models.ForeignKey(SubContractor, null=True, on_delete=models.PROTECT, related_name="sub_contractor")
+    sub_contractor = models.ForeignKey(SubContractor, null=True, on_delete=models.CASCADE, related_name="sub_contractor")
     works_progress = models.CharField(max_length=50, choices=ProgressChoices.choices, default=ProgressChoices.completed, null=False)
     works_notes = models.TextField(blank=True, null=False)
 
     ## Furnishing
     furniture_needed = models.CharField(max_length=50, choices=FurnitureChoices.choices, default=FurnitureChoices.full, null=False)
-    funiture_provider = models.ForeignKey(FurnitureProvider, null=True, on_delete=models.PROTECT, related_name="furniture_provider")
+    funiture_provider = models.ForeignKey(FurnitureProvider, null=True, on_delete=models.CASCADE, related_name="furniture_provider")
     furniture_progress = models.CharField(max_length=50, choices=ProgressChoices.choices, default=ProgressChoices.not_started_yet, null=False)
     furniture_notes = models.TextField(blank=True, null=False)
 

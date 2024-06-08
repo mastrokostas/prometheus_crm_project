@@ -13,4 +13,7 @@ urlpatterns = [
     path('natural_gas/', views.natural_gas, name='natural_gas'),
     path('edit_natural_gas/<int:pk>/', views.edit_natural_gas, name='edit_natural_gas'),
     path('add_natural_gas/', views.add_natural_gas, name='add_natural_gas'),
+    path('building_managers/', views.building_managers, name='building_managers'),
+    path('edit_building_manager/<int:pk>/', views.edit_building_manager, name='edit_building_manager'),
+    path('add_building_manager/', views.add_building_manager, name='add_building_manager'),
 ]

@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from .models import Legal, Electricity, NaturalGas
-from .forms import EditLegalForm, EditElectricityForm, EditNaturalGasForm
+from .models import Legal, Electricity, NaturalGas, BuildingManagementCompany
+from .forms import EditLegalForm, EditElectricityForm, EditNaturalGasForm, EditBuildingManagerForm
 
 # Create your views here.
 
@@ -92,3 +92,29 @@ def add_natural_gas(request):
             messages.success(request, "Natural Gas Company Added!")
             return redirect('natural_gas')
     return render(request, 'collaborators/add_natural_gas.html', {'form': form})
+
+
+## Building Managers
+@login_required(login_url='login')
+def building_managers(request):
+    companies = BuildingManagementCompany.objects.all()
+    return render(request, "collaborators/building_managers.html", {"companies":companies})
+
+def edit_building_manager(request,pk):
+    record = BuildingManagementCompany.objects.get(id=pk)
+    form = EditBuildingManagerForm(request.POST or None, instance=record)
+    if form.is_valid():
+        form.save()
+        messages.success(request, "Building Management Company's information has been updated!")
+        return redirect('building_managers')
+    return render(request, 'collaborators/edit_building_manager.html', {'form': form, 'record': record})
+
+@login_required(login_url='login')
+def add_building_manager(request):
+    form = EditBuildingManagerForm(request.POST or None)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Building Management Company Added!")
+            return redirect('building_managers')
+    return render(request, 'collaborators/add_building_manager.html', {'form': form})
