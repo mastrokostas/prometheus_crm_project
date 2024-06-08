@@ -1,29 +1,31 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block css_files %}
+    <link rel="stylesheet" href="{% static "global/forms.css" %}">
+{% endblock css_files %}
+
 {% block title %}
 New Natural Gas Company
 {% endblock title %}
 
 {% block content %}
-<h1>New Natural Gas Company</h1>
-<br/>
+<center><h1>New Natural Gas Company</h1></center>
 
 <form method="POST" action="{% url 'add_natural_gas' %}">
     {% csrf_token %}
-    {% comment %} {{ form.as_p }} {% endcomment %}
-    {% comment %} replaced by field {% endcomment %}
     {% for field in form %}
-        <label class="required" style="{% if field.field.required == True %}color:red;{% endif %}" for="{{ field.auto_id }}">{{ field.label }}</label>
+    <div class=" form_control {% if field.errors %} errors{% endif %}">
+        <label class="{% if field.field.required == True %}required{% endif %}" for="{{ field.auto_id }}">{{ field.label }}</label>
         {{ field }}
-        </br>
+        {{ field.errors }}
+    </div>
     {% endfor %}
-    <br/>
     <br/>
     <button type="submit" class="btn btn-success">
         Save New Natural Gas Company
     </button>
-    <a href="{% url 'electricity' %}" class="btn btn-danger">Cancel</a>
+    <a href="{% url 'natural_gas' %}" class="btn btn-danger">Cancel</a>
 </form>
 
 {% endblock content %}
