@@ -1,31 +1,24 @@
 {% extends "base.html" %}
-{% load static %}
-
-{% block css_files %}
-    <link rel="stylesheet" href="{% static "global/global.css" %}">
-{% endblock css_files %}
 
 {% block title %}
-Edit Landlord
+Edit Natural Gas Company
 {% endblock title %}
 
 {% block content %}
-<h1>Edit Landlord Page</h1>
+<h1>Edit Natural Gas Company</h1>
 
 <form method="POST">
     {% csrf_token %}
     {% for field in form %}
         <label class="required" style="{% if field.field.required == True %}color:red;{% endif %}" for="{{ field.auto_id }}">{{ field.label }}</label>
-        {{ field.errors }}
-        {{ field }}        
+        {{ field }}
         </br>
     {% endfor %}
     <br/>
     <button type="submit" class="btn btn-success">
         Update Record
     </button>
-    <a href="{% url "landlord_record" record.id %}" class="btn btn-danger">Cancel</a>
-    <a href="{% url "all_landlords" %}" class="btn btn-secondary">Cancel and Back to All Landlords</a>
+    <a href="{% url "electricity" %}" class="btn btn-danger">Cancel</a>
 </form>
 
 {% endblock content %}

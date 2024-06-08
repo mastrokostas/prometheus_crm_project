@@ -10,5 +10,7 @@ urlpatterns = [
     path('electricity/', views.electricity, name='electricity'),
     path('edit_electricity/<int:pk>/', views.edit_electricity, name='edit_electricity'),
     path('add_electricity/', views.add_electricity, name='add_electricity'),
-    
+    path('natural_gas/', views.natural_gas, name='natural_gas'),
+    path('edit_natural_gas/<int:pk>/', views.edit_natural_gas, name='edit_natural_gas'),
+    path('add_natural_gas/', views.add_natural_gas, name='add_natural_gas'),
 ]

@@ -35,7 +35,7 @@ class AddLandlordForm(forms.ModelForm):
     nationality = forms.CharField(required=True, widget=forms.Select(attrs={"class":"form-control"}, choices=NATIONALITY_CHOICES), label="Nationality, *Required Choice")
     law_firm = forms.ModelChoiceField(required=True, queryset=Legal.objects.all(), widget=forms.Select(attrs={"class":"form-control"}), label="Law Firm, *Required Choice")
     passport_number = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"ID or Passport Number", "class":"form-control"}), label="*Required")
-    passport_expiry_date = forms.DateField(required=True, widget=forms.widgets.DateInput(attrs={"type":"date", "class":"form-control"}), label="Date, *Required Choice")
+    passport_expiry_date = forms.DateField(required=True, widget=forms.widgets.DateInput(attrs={"type":"date", "class":"form-control"}), label="Passport Expiry Date, *Required Choice")
     cooperation_type = forms.CharField(required=True, widget=forms.Select(attrs={"class":"form-control"}, choices=COOPERATION_TYPE_CHOICES), label="Cooperation Type, *Required Choice")
     notes = forms.CharField(required=False, widget=forms.Textarea(attrs={"placeholder":"Notes", "class":"form-control"}), label="")
     
@@ -44,6 +44,11 @@ class AddLandlordForm(forms.ModelForm):
         exclude = [
             "created_at", "updated", "is_active", "is_blacklisted",
         ]
+        error_messages = {
+            "tax_id":{
+                "unique":"tax id must be unique"
+            }
+        }
 
 class EditLandlordForm(forms.ModelForm):
     file_type = forms.CharField(required=True, widget=forms.Select(attrs={"class":"form-control"}, choices=FILE_TYPE_CHOICES), label="File Type, *Required Choice")
@@ -59,7 +64,7 @@ class EditLandlordForm(forms.ModelForm):
     nationality = forms.CharField(required=True, widget=forms.Select(attrs={"class":"form-control"}, choices=NATIONALITY_CHOICES), label="Nationality, *Required Choice")
     law_firm = forms.ModelChoiceField(required=True, queryset=Legal.objects.all(), widget=forms.Select(attrs={"class":"form-control"}), label="Law Firm, *Required Choice")
     passport_number = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"ID or Passport Number", "class":"form-control"}), label="*Required")
-    passport_expiry_date = forms.DateField(required=True, widget=forms.widgets.DateInput(attrs={"type":"date", "class":"form-control"}), label="Date, *Required Choice")
+    passport_expiry_date = forms.DateField(required=True, widget=forms.widgets.DateInput(attrs={"type":"date", "class":"form-control"}), label="Expiry Date, *Required Choice")
     cooperation_type = forms.CharField(required=True, widget=forms.Select(attrs={"class":"form-control"}, choices=COOPERATION_TYPE_CHOICES), label="Cooperation Type, *Required Choice")
     is_active = forms.BooleanField(required=False)
     is_blacklisted = forms.BooleanField(required=False)
@@ -70,3 +75,8 @@ class EditLandlordForm(forms.ModelForm):
         exclude = [
             "created_at", "updated",
         ]
+        error_messages = {
+            "tax_id":{
+                "unique":"tax id must be unique"
+            }
+        }
