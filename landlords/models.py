@@ -39,9 +39,8 @@ class Landlord(models.Model):
     passport_number = models.CharField(max_length=50, null=False)
     passport_expiry_date = models.DateField(null=False)
     nationality = models.CharField(max_length=50, choices=NATIONALITY_CHOICES, null=False)
-
-    law_firm = models.ForeignKey(Legal, null=False, on_delete=models.PROTECT, related_name="legal_team")  
-    
+    ## foreign key
+    law_firm = models.ForeignKey(Legal, null=False, on_delete=models.CASCADE, related_name="legal_team")
     cooperation_type = models.CharField(max_length=50, choices=COOPERATION_TYPE_CHOICES, null=False)
     is_active = models.BooleanField(default=False, null=False)
     is_blacklisted = models.BooleanField(default=False, null=False)

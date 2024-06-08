@@ -9,7 +9,7 @@ class Legal(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-    company_name = models.CharField(max_length=50, null=False) 
+    company_name = models.CharField(max_length=50, null=False, unique=True) 
     company_address = models.CharField(max_length=50, null=False, blank=True)
     company_municipality = models.CharField(max_length=50, null=False, blank=True)
     company_zip_code = models.PositiveIntegerField(validators=[MaxValueValidator(99999)], null=True, blank=True)
@@ -26,7 +26,7 @@ class Electricity(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-    company_name = models.CharField(max_length=50, null=False, blank=False) 
+    company_name = models.CharField(max_length=50, null=False, blank=False, unique=True) 
     company_address = models.CharField(max_length=50, null=False, blank=True)
     company_municipality = models.CharField(max_length=50, null=False, blank=True)
     company_zip_code = models.PositiveIntegerField(validators=[MaxValueValidator(99999)], null=True, blank=True)
@@ -43,7 +43,7 @@ class NaturalGas(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-    company_name = models.CharField(max_length=50, null=False, blank=False) 
+    company_name = models.CharField(max_length=50, null=False, blank=False, unique=True) 
     company_address = models.CharField(max_length=50, null=False, blank=True)
     company_municipality = models.CharField(max_length=50, null=False, blank=True)
     company_zip_code = models.PositiveIntegerField(validators=[MaxValueValidator(99999)], null=True, blank=True)
@@ -61,7 +61,7 @@ class SubContractor(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-    company_name = models.CharField(max_length=50, null=False, blank=False) 
+    company_name = models.CharField(max_length=50, null=False, blank=False, unique=True) 
     company_address = models.CharField(max_length=50, null=False, blank=True)
     company_municipality = models.CharField(max_length=50, null=False, blank=True)
     company_zip_code = models.PositiveIntegerField(validators=[MaxValueValidator(99999)], null=True, blank=True)
@@ -78,7 +78,7 @@ class FurnitureProvider(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-    company_name = models.CharField(max_length=50, null=False, blank=False) 
+    company_name = models.CharField(max_length=50, null=False, blank=False, unique=True) 
     company_address = models.CharField(max_length=50, null=False, blank=True)
     company_municipality = models.CharField(max_length=50, null=False, blank=True)
     company_zip_code = models.PositiveIntegerField(validators=[MaxValueValidator(99999)], null=True, blank=True)
@@ -95,7 +95,7 @@ class BuildingManagementCompany(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-    company_name = models.CharField(max_length=50, null=False, blank=False) 
+    company_name = models.CharField(max_length=50, null=False, blank=False, unique=True) 
     company_address = models.CharField(max_length=50, null=False, blank=True)
     company_municipality = models.CharField(max_length=50, null=False, blank=True)
     company_zip_code = models.PositiveIntegerField(validators=[MaxValueValidator(99999)], null=True, blank=True)

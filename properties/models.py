@@ -2,7 +2,7 @@ from django.db import models
 from django.core.validators import MaxValueValidator
 
 from landlords.models import Landlord
-from collaborators.models import Electricity, NaturalGas, SubContractor, FurnitureProvider
+from collaborators.models import Electricity, NaturalGas, SubContractor, FurnitureProvider, BuildingManagementCompany
 # Create your models here.
     
 
@@ -57,13 +57,13 @@ class Property(models.Model):
 
     ## Construction
     constructed_by = models.CharField(max_length=30, choices=ConstructedByChoises.choices, null=False)
-    sub_contractor = models.ForeignKey(SubContractor, null=True, on_delete=models.CASCADE, related_name="sub_contractor")
+    sub_contractor = models.ForeignKey(SubContractor, null=False, on_delete=models.CASCADE, related_name="sub_contractor")
     works_progress = models.CharField(max_length=50, choices=ProgressChoices.choices, default=ProgressChoices.completed, null=False)
     works_notes = models.TextField(blank=True, null=False)
 
     ## Furnishing
     furniture_needed = models.CharField(max_length=50, choices=FurnitureChoices.choices, default=FurnitureChoices.full, null=False)
-    funiture_provider = models.ForeignKey(FurnitureProvider, null=True, on_delete=models.CASCADE, related_name="furniture_provider")
+    funiture_provider = models.ForeignKey(FurnitureProvider, null=False, on_delete=models.CASCADE, related_name="furniture_provider")
     furniture_progress = models.CharField(max_length=50, choices=ProgressChoices.choices, default=ProgressChoices.not_started_yet, null=False)
     furniture_notes = models.TextField(blank=True, null=False)
 
@@ -80,7 +80,7 @@ class Property(models.Model):
 
     ## Management
     management_fee = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
-    # building_management_company -> foreign key from collaborators
+    building_management_company = models.ForeignKey(BuildingManagementCompany, null=False, blank=False, on_delete=models.CASCADE, related_name="building_management_company")
     building_manager_first_name = models.CharField(max_length=100, null=False, blank=True)
     building_manager_last_name = models.CharField(max_length=100, null=False, blank=True)
     building_manager_phone = models.IntegerField(null=False, blank=True)
@@ -96,12 +96,12 @@ class Property(models.Model):
     water_meter = models.CharField(max_length=20, null=False, blank=True)
     water_username = models.CharField(max_length=50, null=False, blank=True)
     water_password = models.CharField(max_length=50, null=False, blank=True)
-    electricity_provider = models.ForeignKey(Electricity, null=True, on_delete=models.PROTECT, related_name="electricity")
+    electricity_provider = models.ForeignKey(Electricity, null=False, on_delete=models.PROTECT, related_name="electricity")
     electricity_utility_no = models.CharField(max_length=20, null=False, blank=True)
     electricity_meter = models.CharField(max_length=20, null=False, blank=True)
     electricity_username = models.CharField(max_length=50, null=False, blank=True)
     electricity_password = models.CharField(max_length=50, null=False, blank=True)
-    lng_provider = models.ForeignKey(NaturalGas, null=True, on_delete=models.PROTECT, related_name="natural_gas")
+    lng_provider = models.ForeignKey(NaturalGas, null=False, on_delete=models.PROTECT, related_name="natural_gas")
     lng_utility_no = models.CharField(max_length=50, null=False, blank=True)
     lng_meter = models.CharField(max_length=50, null=False, blank=True)
     lng_username = models.CharField(max_length=50, null=False, blank=True)

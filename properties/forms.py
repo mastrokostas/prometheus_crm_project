@@ -2,7 +2,7 @@ from django import forms
 
 from .models import Property
 from landlords.models import Landlord
-from collaborators.models import SubContractor, FurnitureProvider, Electricity, NaturalGas
+from collaborators.models import SubContractor, FurnitureProvider, Electricity, NaturalGas, BuildingManagementCompany
 
 class AddPropertyForm(forms.ModelForm):
 
@@ -12,10 +12,10 @@ class AddPropertyForm(forms.ModelForm):
 
     ## Property Stuff
     property_id = forms.IntegerField(required=True, widget=forms.widgets.NumberInput(attrs={"placeholder":"Property ID - DO NOT MAKE MISTAKE HERE", "class":"form-control"}), label="Property ID, *Required:")
-    address = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Address", "class":"form-control",}), label="*Required")
-    municipality = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Municipality", "class":"form-control",}), label="Address, *Required:")
-    zip_code = forms.IntegerField(required=True, widget=forms.widgets.NumberInput(attrs={"placeholder":"Zip Code", "class":"form-control"}), label="Municipality, *Required:")
-    floor = forms.IntegerField(required=True, widget=forms.widgets.NumberInput(attrs={"placeholder":"Floor", "class":"form-control"}), label="Zip Code, *Required:")
+    address = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Address", "class":"form-control",}), label="Address, *Required:")
+    municipality = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Municipality", "class":"form-control",}), label="Municipality, *Required:")
+    zip_code = forms.IntegerField(required=True, widget=forms.widgets.NumberInput(attrs={"placeholder":"Zip Code", "class":"form-control"}), label="Zip Code, *Required:")
+    floor = forms.IntegerField(required=True, widget=forms.widgets.NumberInput(attrs={"placeholder":"Floor", "class":"form-control"}), label="Floor, *Required:")
     apartment_no = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Apartment Number", "class":"form-control",}), label="Apartment Number, *Required:")
     surface = forms.DecimalField(required=True, widget=forms.widgets.NumberInput(attrs={"placeholder":"Surface in sqm (include decimal places if applicable)", "class":"form-control"}), label="Surface, *Required:")
     buying_contract_date = forms.DateField(required=True, widget=forms.widgets.DateInput(attrs={"type":"date", "class":"form-control"}), label="Buying Contract Date, *Required Choise:")
@@ -23,7 +23,7 @@ class AddPropertyForm(forms.ModelForm):
 
     ## Construction
     constructed_by = forms.ChoiceField(required=True, choices=Property.ConstructedByChoises, widget=forms.Select(attrs={"class":"form-control"}), label="Constructed By, *Required Choise:")
-    sub_contractor = forms.ModelChoiceField(required=False, queryset=SubContractor.objects.all(), widget=forms.Select(attrs={"class":"form-control"}), label="Sub-Contractor:")
+    sub_contractor = forms.ModelChoiceField(required=True, queryset=SubContractor.objects.all(), widget=forms.Select(attrs={"class":"form-control"}), label="Sub-Contractor:")
     works_progress = forms.ChoiceField(required=True, choices=Property.ProgressChoices, widget=forms.Select(attrs={"class":"form-control"}), label="Works Progress, *Required Choise:")
     works_notes = forms.CharField(required=False, widget=forms.Textarea(attrs={"placeholder":"Works Notes", "class":"form-control"}), label="Works Notes:")
 
@@ -47,7 +47,7 @@ class AddPropertyForm(forms.ModelForm):
 
     ## Management
     management_fee = forms.DecimalField(required=False, widget=forms.widgets.NumberInput(attrs={"placeholder":"Management Fee €: (include decimal places if applicable)", "class":"form-control"}), label="Management Fee:")
-    # building management company
+    building_management_company = forms.ModelChoiceField(required=True, queryset=BuildingManagementCompany.objects.all(), widget=forms.Select(attrs={"class":"form-control"}), label="Building Management Company, *Required:")
     building_manager_first_name = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Building Manager First Name", "class":"form-control"}), label="Building Manager First Name:")
     building_manager_last_name = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Building Manager Last Name", "class":"form-control"}), label="Building Manager Last Name:")
     building_manager_phone = forms.IntegerField(required=False, widget=forms.widgets.NumberInput(attrs={"placeholder":"Building Manager Phone Number", "class":"form-control"}), label="Building Manager Phone Number:")
@@ -65,12 +65,12 @@ class AddPropertyForm(forms.ModelForm):
     water_meter = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Water Meter", "class":"form-control",}), label="Water Meter:")
     water_username = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"EDYAP Username", "class":"form-control",}), label="EDYAP Username:")
     water_password = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"EYDAP Password", "class":"form-control",}), label="EDYAP Password:")
-    electricity_provider = forms.ModelChoiceField(required=False, queryset=Electricity.objects.all(), widget=forms.Select(attrs={"class":"form-control"}), label="Electricity Provider:")
+    electricity_provider = forms.ModelChoiceField(required=True, queryset=Electricity.objects.all(), widget=forms.Select(attrs={"class":"form-control"}), label="Electricity Provider, *Required:")
     electricity_utility_no = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Electricity Utility Number", "class":"form-control",}), label="Electricity Utility Number:")
     electricity_meter = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Electricity Meter", "class":"form-control",}), label="Electricity Meter:")
     electricity_username = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Electricity Provider Username", "class":"form-control",}), label="Electricity Provider Username:")
     electricity_password = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Electricity Provider Password", "class":"form-control",}), label="Electricity Provider Password:")
-    lng_provider = forms.ModelChoiceField(required=False, queryset=NaturalGas.objects.all(), widget=forms.Select(attrs={"class":"form-control"}), label="Natural Gas Provider:")
+    lng_provider = forms.ModelChoiceField(required=True, queryset=NaturalGas.objects.all(), widget=forms.Select(attrs={"class":"form-control"}), label="Natural Gas Provider, *Required:")
     lng_utility_no = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Natural Gas Utility Number", "class":"form-control",}), label="Natural Gas Utility Number:")
     lng_meter = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Natural Gas Meter", "class":"form-control",}), label="Natural Gas Meter:")
     lng_username = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Natural Gas Provider Username", "class":"form-control",}), label="Natural Gas Provider Username:")
@@ -102,7 +102,7 @@ class EditPropertyForm(forms.ModelForm):
 
     ## Construction
     constructed_by = forms.ChoiceField(required=True, choices=Property.ConstructedByChoises, widget=forms.Select(attrs={"class":"form-control"}), label="Constructed By, *Required Choise:")
-    sub_contractor = forms.ModelChoiceField(required=False, queryset=SubContractor.objects.all(), widget=forms.Select(attrs={"class":"form-control"}), label="Sub-Contractor:")
+    sub_contractor = forms.ModelChoiceField(required=True, queryset=SubContractor.objects.all(), widget=forms.Select(attrs={"class":"form-control"}), label="Sub-Contractor:")
     works_progress = forms.ChoiceField(required=True, choices=Property.ProgressChoices, widget=forms.Select(attrs={"class":"form-control"}), label="Works Progress, *Required Choise:")
     works_notes = forms.CharField(required=False, widget=forms.Textarea(attrs={"placeholder":"Works Notes", "class":"form-control"}), label="Works Notes:")
 
@@ -124,7 +124,7 @@ class EditPropertyForm(forms.ModelForm):
     rg_ending = forms.DateField(required=False, widget=forms.widgets.DateInput(attrs={"type":"date", "class":"form-control"}), label="Rental Guarantee Ending Date:")
     
     management_fee = forms.DecimalField(required=False, widget=forms.widgets.NumberInput(attrs={"placeholder":"Management Fee €: (include decimal places if applicable)", "class":"form-control"}), label="Management Fee:")
-    # building management company
+    building_management_company = forms.ModelChoiceField(required=True, queryset=BuildingManagementCompany.objects.all(), widget=forms.Select(attrs={"class":"form-control"}), label="Building Management Company, *Required:")
     building_manager_first_name = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Building Manager First Name", "class":"form-control"}), label="Building Manager First Name:")
     building_manager_last_name = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Building Manager Last Name", "class":"form-control"}), label="Building Manager Last Name:")
     building_manager_phone = forms.IntegerField(required=False, widget=forms.widgets.NumberInput(attrs={"placeholder":"Building Manager Phone Number", "class":"form-control"}), label="Building Manager Phone Number:")
@@ -138,13 +138,13 @@ class EditPropertyForm(forms.ModelForm):
     water_meter = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Water Meter", "class":"form-control",}), label="Water Meter:")
     water_username = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"EDYAP Username", "class":"form-control",}), label="EDYAP Username:")
     water_password = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"EYDAP Password", "class":"form-control",}), label="EDYAP Password:")
-    electricity_provider = forms.ModelChoiceField(required=False, queryset=Electricity.objects.all(), widget=forms.Select(attrs={"class":"form-control"}), label="Electricity Provider:")
+    electricity_provider = forms.ModelChoiceField(required=False, queryset=Electricity.objects.all(), widget=forms.Select(attrs={"class":"form-control"}), label="Electricity Provider, *Required:")
     electricity_utility_no = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Electricity Utility Number", "class":"form-control",}), label="Electricity Utility Number:")
     electricity_meter = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Electricity Meter", "class":"form-control",}), label="Electricity Meter:")
     electricity_username = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Electricity Provider Username", "class":"form-control",}), label="Electricity Provider Username:")
     electricity_password = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Electricity Provider Password", "class":"form-control",}), label="Electricity Provider Password:")
     lng_provider = forms.ModelChoiceField(required=False, queryset=NaturalGas.objects.all(), widget=forms.Select(attrs={"class":"form-control"}), label="Natural Gas Provider:")
-    lng_utility_no = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Natural Gas Utility Number", "class":"form-control",}), label="Natural Gas Utility Number:")
+    lng_utility_no = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Natural Gas Utility Number", "class":"form-control",}), label="Natural Gas Utility Number, *Required:")
     lng_meter = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Natural Gas Meter", "class":"form-control",}), label="Natural Gas Meter:")
     lng_username = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Natural Gas Provider Username", "class":"form-control",}), label="Natural Gas Provider Username:")
     lng_password = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Natural Gas Provider Password", "class":"form-control",}), label="Natural Gas Provider Password:")

@@ -17,7 +17,7 @@ class EditLegalForm(forms.ModelForm):
         ]
 
 class EditElectricityForm(forms.ModelForm):
-    company_name = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Company Name", "class":"form-control"}), label="Company Name, *Required:")
+    company_name = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Company Name", "class":"form-control"}), label="Company Name, *Required:")
     company_address = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Company Address", "class":"form-control"}), label="Company Address:")
     company_municipality = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Company Municipality", "class":"form-control"}), label="Company Municipality:")
     company_zip_code = forms.IntegerField(required=False, widget=forms.widgets.NumberInput(attrs={"placeholder":"Zip Code", "class":"form-control"}), label="Zip Code:")
@@ -30,7 +30,7 @@ class EditElectricityForm(forms.ModelForm):
         ]
 
 class EditNaturalGasForm(forms.ModelForm):
-    company_name = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Company Name", "class":"form-control"}), label="Company Name, *Required:")
+    company_name = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Company Name", "class":"form-control"}), label="Company Name, *Required:")
     company_address = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Company Address", "class":"form-control"}), label="Company Address:")
     company_municipality = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Company Municipality", "class":"form-control"}), label="Company Municipality:")
     company_zip_code = forms.IntegerField(required=False, widget=forms.widgets.NumberInput(attrs={"placeholder":"Zip Code", "class":"form-control"}), label="Zip Code:")
@@ -43,7 +43,7 @@ class EditNaturalGasForm(forms.ModelForm):
         ]
 
 class EditBuildingManagerForm(forms.ModelForm):
-    company_name = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Company Name", "class":"form-control"}), label="Company Name, *Required:")
+    company_name = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Company Name", "class":"form-control"}), label="Company Name, *Required:")
     company_address = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Company Address", "class":"form-control"}), label="Company Address:")
     company_municipality = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Company Municipality", "class":"form-control"}), label="Company Municipality:")
     company_zip_code = forms.IntegerField(required=False, widget=forms.widgets.NumberInput(attrs={"placeholder":"Zip Code", "class":"form-control"}), label="Zip Code:")
@@ -58,7 +58,7 @@ class EditBuildingManagerForm(forms.ModelForm):
         ]
 
 class EditSubContractorForm(forms.ModelForm):
-    company_name = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Company Name", "class":"form-control"}), label="Company Name, *Required:")
+    company_name = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Company Name", "class":"form-control"}), label="Company Name, *Required:")
     company_address = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Company Address", "class":"form-control"}), label="Company Address:")
     company_municipality = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Company Municipality", "class":"form-control"}), label="Company Municipality:")
     company_zip_code = forms.IntegerField(required=False, widget=forms.widgets.NumberInput(attrs={"placeholder":"Zip Code", "class":"form-control"}), label="Zip Code:")
@@ -71,7 +71,7 @@ class EditSubContractorForm(forms.ModelForm):
         ]
 
 class EditFurnitureProviderForm(forms.ModelForm):
-    company_name = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Company Name", "class":"form-control"}), label="Company Name, *Required:")
+    company_name = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Company Name", "class":"form-control"}), label="Company Name, *Required:")
     company_address = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Company Address", "class":"form-control"}), label="Company Address:")
     company_municipality = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Company Municipality", "class":"form-control"}), label="Company Municipality:")
     company_zip_code = forms.IntegerField(required=False, widget=forms.widgets.NumberInput(attrs={"placeholder":"Zip Code", "class":"form-control"}), label="Zip Code:")
