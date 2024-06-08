@@ -19,4 +19,7 @@ urlpatterns = [
     path('sub_contractors/', views.sub_contractors, name='sub_contractors'),
     path('edit_sub_contractor/<int:pk>/', views.edit_sub_contractor, name='edit_sub_contractor'),
     path('add_sub_contractor/', views.add_sub_contractor, name='add_sub_contractor'),
+    path('furniture_providers/', views.furniture_providers, name='furniture_providers'),
+    path('edit_furniture_provider/<int:pk>/', views.edit_furniture_provider, name='edit_furniture_provider'),
+    path('add_furniture_provider/', views.add_furniture_provider, name='add_furniture_provider'),
 ]

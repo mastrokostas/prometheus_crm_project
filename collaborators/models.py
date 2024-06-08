@@ -102,3 +102,9 @@ class BuildingManagementCompany(models.Model):
     company_phone = models.CharField(max_length=50, null=False, blank=True)
     designated_person_first_name = models.CharField(max_length=50, null=False, blank=True)
     designated_person_last_name = models.CharField(max_length=50, null=False, blank=True)
+
+    class Meta:
+        verbose_name_plural = "Building Management Companies"
+
+    def __str__(self):
+        return f"{self.company_name}"

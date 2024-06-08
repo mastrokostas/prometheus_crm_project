@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from .models import Legal, Electricity, NaturalGas, BuildingManagementCompany, SubContractor
-from .forms import EditLegalForm, EditElectricityForm, EditNaturalGasForm, EditBuildingManagerForm, EditSubContractorForm
+from .models import Legal, Electricity, NaturalGas, BuildingManagementCompany, SubContractor, FurnitureProvider
+from .forms import EditLegalForm, EditElectricityForm, EditNaturalGasForm, EditBuildingManagerForm, EditSubContractorForm, EditFurnitureProviderForm
 
 # Create your views here.
 
@@ -144,3 +144,29 @@ def add_sub_contractor(request):
             messages.success(request, "Sub-Contractor Added!")
             return redirect('sub_contractors')
     return render(request, 'collaborators/add_sub_contractor.html', {'form': form})
+
+
+## Furniture Providers
+@login_required(login_url='login')
+def furniture_providers(request):
+    companies = FurnitureProvider.objects.all()
+    return render(request, "collaborators/furniture_providers.html", {"companies":companies})
+
+def edit_furniture_provider(request,pk):    
+    record = FurnitureProvider.objects.get(id=pk)
+    form = EditFurnitureProviderForm(request.POST or None, instance=record)
+    if form.is_valid():
+        form.save()
+        messages.success(request, "Furniture Provider's information has been updated!")
+        return redirect('furniture_providers')
+    return render(request, 'collaborators/edit_furniture_provider.html', {'form': form, 'record': record})
+
+@login_required(login_url='login')
+def add_furniture_provider(request):
+    form = EditFurnitureProviderForm(request.POST or None)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Furniture Provider Added!")
+            return redirect('furniture_providers')
+    return render(request, 'collaborators/add_furniture_provider.html', {'form': form})
