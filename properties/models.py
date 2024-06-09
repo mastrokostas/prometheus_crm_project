@@ -63,7 +63,7 @@ class Property(models.Model):
 
     ## Furnishing
     furniture_needed = models.CharField(max_length=50, choices=FurnitureChoices.choices, default=FurnitureChoices.full, null=False)
-    funiture_provider = models.ForeignKey(FurnitureProvider, null=False, on_delete=models.CASCADE, related_name="furniture_provider")
+    furniture_provider = models.ForeignKey(FurnitureProvider, null=False, on_delete=models.CASCADE, related_name="furniture_provider")
     furniture_progress = models.CharField(max_length=50, choices=ProgressChoices.choices, default=ProgressChoices.not_started_yet, null=False)
     furniture_notes = models.TextField(blank=True, null=False)
 
@@ -83,7 +83,7 @@ class Property(models.Model):
     building_management_company = models.ForeignKey(BuildingManagementCompany, null=False, blank=False, on_delete=models.CASCADE, related_name="building_management_company")
     building_manager_first_name = models.CharField(max_length=100, null=False, blank=True)
     building_manager_last_name = models.CharField(max_length=100, null=False, blank=True)
-    building_manager_phone = models.IntegerField(null=False, blank=True)
+    building_manager_phone = models.IntegerField(null=True)
     building_manager_apt = models.CharField(max_length=10, null=False, blank=True)
 
 

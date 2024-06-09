@@ -28,27 +28,41 @@ Property record
       <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
         <div class="accordion-body"> 
             <strong>Property ID:</strong> {{ record.property_id }}
-            </br></br>          
+        </div>  
+        <div class="accordion-body">        
             <strong>Address:</strong> {{ record.address|title }}, {{ record.municipality|title }}
-            </br></br>                                    
+        </div>    
+        <div class="accordion-body">                                
             <strong>Zip Code:</strong> {{ record.zip_code }}
-            </br></br>
-            <strong>Floor:</strong> {{ record.floor }}
-            </br></br>
-            <strong>Apartment No:</strong> {{ record.apartment_no }}
-            </br></br>
-            <strong>Surface:</strong> {{ record.surface }} m²
-            </br></br>
-            <strong>Management Fee:</strong> {{ record.management_fee }} €
-            </br></br>
-            <strong>Owner:</strong> <a href="{% url "landlord_record" record.owner_1.id %}">{{ record.owner_1 }}</a>
-            </br></br>
-            {% if record.owner_2 %}
-            <strong>Owner 2:</strong> <a href="{% url "landlord_record" record.owner_2.id %}">{{ record.owner_2 }}</a>
-            </br></br>
-            {% endif %}
-            
         </div>
+        <div class="accordion-body">
+            <strong>Floor:</strong> {{ record.floor }}
+        </div>
+        <div class="accordion-body">
+            <strong>Apartment No:</strong> {{ record.apartment_no }}
+        </div>
+        <div class="accordion-body">
+            <strong>Surface:</strong> {{ record.surface }} m²
+        </div>      
+        <div class="accordion-body">      
+            <strong>Owner:</strong> <a href="{% url "landlord_record" record.owner_1.id %}">{{ record.owner_1 }}</a>
+        </div>
+        {% if record.owner_2 %}
+        <div class="accordion-body">
+            <strong>Owner 2:</strong> <a href="{% url "landlord_record" record.owner_2.id %}">{{ record.owner_2 }}</a>
+        </div>
+        {% endif %}
+        <div class="accordion-body">
+            <strong>Building Management Company:</strong> <a data-bs-toggle="offcanvas" {% if record.building_management_company.company_name != "NONE" %}href="#offcanvasbuildingmanagementcompany"{% endif %} role="button" aria-controls="offcanvasbuildingmanagementcompany">{{ record.building_management_company }}</a>
+        </div>
+        {% if record.building_manager_first_name %}
+        <div class="accordion-body">
+            <strong>Individual Building Manager:</strong> {{ record.building_manager_first_name }} {{ record.building_manager_last_name }}, Apartment {{ record.building_manager_apt}}
+        </div>
+        <div class="accordion-body">
+            <strong>Individual Building Manager Phone:</strong> <a href="tel:{{ record.building_manager_phone }}">{{ record.building_manager_phone }}</a>
+        </div>
+        {% endif %}
       </div>
     </div>
     <div class="accordion-item">
@@ -63,10 +77,13 @@ Property record
             <strong style="color:{% if record.utilisation == "Long-Term Rental" %}green{% elif record.utilisation == "Short-Term Rental" %}purple{% elif record.utilisation == "Not Managed" %}red{% else %}blue{% endif %};">{{ record.utilisation }}</strong>
           </div>
           {% if record.utilisation == "Long-Term Rental" %}
-          <div class="accordion-body">
-            <strong>Status:</strong> <strong style="color:{% if record.utilisation_status == "Rented" %}green{% elif record.utilisation_status == "Vacant" %}orange{% else %}red{% endif %};">{{ record.utilisation_status }}</strong>
+          <div class="accordion-body">                      
+            <strong>Status:</strong> <strong style="color:{% if record.utilisation_status == "Rented" %}green{% elif record.utilisation_status == "Vacant" %}orange{% else %}red{% endif %};">{{ record.utilisation_status }}</strong> 
           </div>
           {% endif %}
+          <div class="accordion-body">
+            <strong>Management Fee:</strong> {{ record.management_fee }} €
+          </div>
         </div>
     </div>
     <div class="accordion-item">
@@ -118,6 +135,16 @@ Property record
         </button>
       </h2>
       <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+        {% if record.constructed_by == "Us" %}
+          <div class="accordion-body">
+            <strong>Constructed By:</strong> {{ record.constructed_by }}
+          </div>
+          {% if record.sub_contractor.company_name != "NONE" %}
+          <div class="accordion-body">
+            <strong>Sub-Contractor:</strong> {{ record.sub_contractor }}
+          </div>
+          {% endif %}
+        {% endif %}
         <div class="accordion-body">
           <strong>Works Progress:</strong> {{ record.works_progress }}
         </div>
@@ -131,7 +158,74 @@ Property record
           <strong>Furniture Progress:</strong> {{ record.furniture_progress }}
         </div>
         <div class="accordion-body">
+          <strong>Furniture Provider:</strong> {{ record.furniture_provider }}
+        </div>
+        <div class="accordion-body">
           <strong>Furniture Notes:</strong> {{ record.furniture_notes }}
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+          Utilities
+        </button>
+      </h2>
+      <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <strong>Water: </strong>
+          <div>
+            <strong>EYDAP Utility No:</strong> {{ record.water_registry_no }}
+          </div>
+          <div>
+            <strong>EYDAP Meter:</strong> {{ record.water_meter }}
+          </div>
+          <div>
+            <strong>EYDAP Username:</strong> {{ record.water_username }}
+          </div>
+          <div>
+            <strong>EYDAP Password:</strong> {{ record.water_password }}
+          </div>
+        </div>
+        <div class="accordion-body">
+          <strong>Electricity: </strong>
+          <div>
+            <strong>Electricity Provider:</strong> {{ record.electricity_provider.company_name }}
+          </div>
+          {% if record.electricity_provider.company_name != "NONE" %}
+          <div>
+            <strong>Electricity Utility No:</strong> {{ record.electricity_utility_no }}
+          </div>
+          <div>
+            <strong>Electricity Meter:</strong> {{ record.electricity_meter }}
+          </div>
+          <div>
+            <strong>Electricity Username:</strong> {{ record.electricity_username }} (Platform: {{ record.electricity_provider.company_name }})
+          </div>
+          <div>
+            <strong>Electricity Password:</strong> {{ record.electricity_password }} (Platform: {{ record.electricity_provider.company_name }})
+          </div>
+          {% endif %}
+        </div>
+        <div class="accordion-body">
+          <strong>Natural Gas: </strong>
+          <div>
+            <strong>Natural Gas Provider:</strong> {{ record.lng_provider.company_name }}
+          </div>
+          {% if record.electricity_provider.company_name != "NONE" %}
+          <div>
+            <strong>Natural Gas Utility No:</strong> {{ record.lng_utility_no }}
+          </div>
+          <div>
+            <strong>Natural Gas Meter:</strong> {{ record.lng_meter }}
+          </div>
+          <div>
+            <strong>Natural Gas Username:</strong> {{ record.lng_username }} (Platform: {{ record.lng_provider.company_name }})
+          </div>
+          <div>
+            <strong>Natural Gas Password:</strong> {{ record.lng_password }} (Platform: {{ record.lng_provider.company_name }})
+          </div>
+          {% endif %}
         </div>
       </div>
     </div>
@@ -139,4 +233,31 @@ Property record
 </br>
 <a href="{% url "edit_property" record.id %}" class="btn btn-info">Edit Property</a>
 <a href="{% url "all_properties" %}" class="btn btn-secondary">Back to All Properties</a>
+
+
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasbuildingmanagementcompany" aria-labelledby="offcanvasbuildingmanagementcompanyLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasbuildingmanagementcompanyLabel">{{ record.building_management_company }}</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div>
+      <strong>Address:</strong> {{ record.building_management_company.company_address }}
+    </div>
+    <div>
+      <strong>Municipality:</strong> {{ record.building_management_company.company_municipality }}
+    </div>
+    <div>
+      <strong>Zip Code:</strong> {{ record.building_management_company.company_zip_code }}
+    </div>
+    <div>
+      <strong>Company Phone:</strong> <a href="tel:{{ record.building_management_company.company_phone }}">{{ record.building_management_company.company_phone }}</a>
+    </div>
+    <div>
+      <strong>Designated Person:</strong> {{ record.building_management_company.designated_person_first_name }} {{ record.building_management_company.designated_person_last_name }}
+    </div>
+  </div>
+</div>
+
 {% endblock content %}

@@ -29,7 +29,7 @@ class AddPropertyForm(forms.ModelForm):
 
     ## Furnishing
     furniture_needed = forms.ChoiceField(required=True, choices=Property.FurnitureChoices, widget=forms.Select(attrs={"class":"form-control"}), label="Furnishing Needed, *Required Choise:")
-    funiture_provider = forms.ModelChoiceField(required=False, queryset=FurnitureProvider.objects.all(), widget=forms.Select(attrs={"class":"form-control"}), label="Furniture Provider:")
+    furniture_provider = forms.ModelChoiceField(required=False, queryset=FurnitureProvider.objects.all(), widget=forms.Select(attrs={"class":"form-control"}), label="Furniture Provider:")
     furniture_progress = forms.ChoiceField(required=True, choices=Property.ProgressChoices, widget=forms.Select(attrs={"class":"form-control"}), label="Furnishing Progress, *Required Choise:")
     furniture_notes = forms.CharField(required=False, widget=forms.Textarea(attrs={"placeholder":"Furnishing Notes", "class":"form-control"}), label="Furnishing Notes:")
 
@@ -108,7 +108,7 @@ class EditPropertyForm(forms.ModelForm):
 
     ## Furnishing
     furniture_needed = forms.ChoiceField(required=True, choices=Property.FurnitureChoices, widget=forms.Select(attrs={"class":"form-control"}), label="Furnishing Needed, *Required Choise:")
-    funiture_provider = forms.ModelChoiceField(required=False, queryset=FurnitureProvider.objects.all(), widget=forms.Select(attrs={"class":"form-control"}), label="Furniture Provider:")
+    furniture_provider = forms.ModelChoiceField(required=False, queryset=FurnitureProvider.objects.all(), widget=forms.Select(attrs={"class":"form-control"}), label="Furniture Provider:")
     furniture_progress = forms.ChoiceField(required=True, choices=Property.ProgressChoices, widget=forms.Select(attrs={"class":"form-control"}), label="Furnishing Progress, *Required Choise:")
     furniture_notes = forms.CharField(required=False, widget=forms.Textarea(attrs={"placeholder":"Furnishing Notes", "class":"form-control"}), label="Furnishing Notes:")
 
@@ -138,7 +138,7 @@ class EditPropertyForm(forms.ModelForm):
     water_meter = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Water Meter", "class":"form-control",}), label="Water Meter:")
     water_username = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"EDYAP Username", "class":"form-control",}), label="EDYAP Username:")
     water_password = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"EYDAP Password", "class":"form-control",}), label="EDYAP Password:")
-    electricity_provider = forms.ModelChoiceField(required=False, queryset=Electricity.objects.all(), widget=forms.Select(attrs={"class":"form-control"}), label="Electricity Provider, *Required:")
+    electricity_provider = forms.ModelChoiceField(required=True, queryset=Electricity.objects.all(), widget=forms.Select(attrs={"class":"form-control"}), label="Electricity Provider, *Required:")
     electricity_utility_no = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Electricity Utility Number", "class":"form-control",}), label="Electricity Utility Number:")
     electricity_meter = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Electricity Meter", "class":"form-control",}), label="Electricity Meter:")
     electricity_username = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Electricity Provider Username", "class":"form-control",}), label="Electricity Provider Username:")
