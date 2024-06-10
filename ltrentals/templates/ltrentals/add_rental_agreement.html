@@ -6,13 +6,13 @@
 {% endblock css_files %}
 
 {% block title %}
-New Property
+New Rental Agreement
 {% endblock title %}
 
 {% block content %}
-<center><h1>New Property</h1></center>
+<center><h1>New Rental Agreement</h1></center>
 
-<form method="POST" action="{% url 'add_property' %}">
+<form method="POST" action="{% url 'add_rental_agreement' %}">
     {% csrf_token %}
     {% for field in form %}
     <div class=" form_control {% if field.errors %} errors{% endif %}">
@@ -23,8 +23,8 @@ New Property
     {% endfor %}
     <br/>
     <button type="submit" class="btn btn-success">
-        Save New Property
+        Save New Rental Agreement
     </button>
-    <a href="{% url 'all_properties' %}" class="btn btn-danger">Cancel</a>
+    <a href="{% url 'all_rental_agreements' %}" class="btn btn-danger">Cancel</a>
 </form>
 {% endblock content %}

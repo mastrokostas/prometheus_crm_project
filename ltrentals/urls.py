@@ -5,4 +5,5 @@ from . import views
 urlpatterns = [
     path('', views.all_rental_agreements, name='all_rental_agreements'),
     path('rental_agreement_record/<int:pk>/', views.rental_agreement_record, name='rental_agreement_record'),
+    path('add_rental_agreement', views.add_rental_agreement, name='add_rental_agreement')
 ]
