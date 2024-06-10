@@ -22,6 +22,10 @@ table {
     text-align: center;
 }
 
+td, th {
+    vertical-align: middle;
+}
+
 .tableFixHead{ 
     overflow: auto; height: 400px;
 }

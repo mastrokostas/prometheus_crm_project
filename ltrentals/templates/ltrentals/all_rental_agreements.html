@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static "global/global.css" %}">
+{% endblock css_files %}
+
+{% block title %}
+All Rental Agreements
+{% endblock title %}
+
+{% block content %}
+<center><h1>All Rental Agreements</h1></center>
+<br/>
+<div class="panel-body table-responsive tableFixHead">
+
+    <script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
+    
+    <table class="table table-striped table-hover table-bordered sortable" id="myTable">
+        <thead>
+          <tr>
+            <th scope="col">File no.</th>
+            <th scope="col">Property ID</th>
+            <th scope="col">Tenant</th>
+            <th scope="col">Agreement</th>
+            <th scope="col">Starting Date</th>
+            <th scope="col">Ending Date</th>
+            <th scope="col">Rent</th>
+            <th scope="col">Active</th>            
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {% if rental_agreements %}
+                {% for rental_agreement in rental_agreements %}
+                <tr>
+                    <td><a href="{% url "landlord_record" rental_agreement.property.owner_1.id %}">{{ rental_agreement.property.owner_1.file_type }}.{{ rental_agreement.property.owner_1.file_number }}</a>
+                        {% if rental_agreement.property.owner_2 %} & <a href="{% url "landlord_record" rental_agreement.property.owner_2.id %}">{{ rental_agreement.property.owner_2.file_type }}.{{ rental_agreement.property.owner_2.file_number }}</a>{% endif %}
+                    </td>
+                    <td><a href="{% url "property_record" rental_agreement.property.id %}">{{ rental_agreement.property.property_id }}</a></td>
+                    <td><a href="{% url "tenant_record" rental_agreement.tenant.id %}">{{ rental_agreement.tenant|title }}</a></td>
+                    <td><a href="{% url "rental_agreement_record" rental_agreement.id %}">{{ rental_agreement.rental_agreement_name|title }}</a></td>
+                    <td>{{ rental_agreement.rental_agreement_starting_date|date:"d/m/o" }}</td>
+                    <td>{{ rental_agreement.rental_agreement_ending_date|date:"d/m/o" }}</td>
+                    <td>{{ rental_agreement.actual_rent }}</td>  
+                    {% if rental_agreement.is_active == True %}
+                    <td style="color:green;">
+                        Active
+                    </td>
+                    {% else %}
+                    <td style="color:red;">
+                        Inactive
+                    </td>
+                    {% endif %}                 
+                </tr>
+                {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>    
+</div>
+{% endblock content %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static "global/global.css" %}">
+{% endblock css_files %}
+
+{% block title %}
+Rental Agreement record
+{% endblock title %}
+
+{% block content %}
+<center><h1>Rental Agreement Record</h1></center>
+</br>
+<div class="card text-center">
+    <div class="card-header">
+      {{record.property.address}}, {{record.property.municipality}}, {{record.property.zip_code}}
+    </div>
+    <div class="card-body">
+      <div>
+      <strong>Tenant: </strong> <a href="{% url "tenant_record" record.tenant.id %}">{{ record.tenant }}</a>
+      </div>
+      <div>
+        <strong>Landlord: </strong> <a href="{% url "landlord_record" record.property.owner_1.id %}">{{ record.property.owner_1}}</a>
+      </div>
+      <div>
+        <strong>Actual Rent: </strong> {{ record.actual_rent }} €
+      </div>
+      <div>
+        <strong>Security Deposits: </strong> {{ record.security_deposits }} monthly rent(s)
+      </div>
+    </div>
+    <div class="card-footer text-body-secondary">
+      {% if record.is_active == True %}
+      <strong style="color:green;">Active</strong>
+      {% else %}
+      <strong style="color:grey;">Inactive</strong>
+      {% endif %}
+    </div>
+  </div>
+{% endblock content %}
