@@ -29,13 +29,13 @@ class AddPropertyForm(forms.ModelForm):
 
     ## Furnishing
     furniture_needed = forms.ChoiceField(required=True, choices=Property.FurnitureChoices, widget=forms.Select(attrs={"class":"form-control"}), label="Furnishing Needed, *Required Choise:")
-    furniture_provider = forms.ModelChoiceField(required=False, queryset=FurnitureProvider.objects.all(), widget=forms.Select(attrs={"class":"form-control"}), label="Furniture Provider:")
+    furniture_provider = forms.ModelChoiceField(required=True, queryset=FurnitureProvider.objects.all(), widget=forms.Select(attrs={"class":"form-control"}), label="Furniture Provider, *Required Choise:")
     furniture_progress = forms.ChoiceField(required=True, choices=Property.ProgressChoices, widget=forms.Select(attrs={"class":"form-control"}), label="Furnishing Progress, *Required Choise:")
     furniture_notes = forms.CharField(required=False, widget=forms.Textarea(attrs={"placeholder":"Furnishing Notes", "class":"form-control"}), label="Furnishing Notes:")
 
     ## Utilisation
     utilisation = forms.ChoiceField(required=True, choices=Property.UtilisationChoices, widget=forms.Select(attrs={"class":"form-control"}), label="Utilisation, *Required Choise:")
-    utilisation_status = forms.ChoiceField(required=False, choices=Property.UtilisationStatusChoices, widget=forms.Select(attrs={"class":"form-control"}), label="Utilisation status, only if applicable:")
+    #utilisation_status = forms.ChoiceField(required=False, choices=Property.UtilisationStatusChoices, widget=forms.Select(attrs={"class":"form-control"}), label="Utilisation status, only if applicable:")
 
     ## Rental Guarantee
     under_rental_guarantee = forms.BooleanField(required=False, label="Rental Guarantee Active?")
@@ -52,13 +52,6 @@ class AddPropertyForm(forms.ModelForm):
     building_manager_last_name = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Building Manager Last Name", "class":"form-control"}), label="Building Manager Last Name:")
     building_manager_phone = forms.IntegerField(required=False, widget=forms.widgets.NumberInput(attrs={"placeholder":"Building Manager Phone Number", "class":"form-control"}), label="Building Manager Phone Number:")
     building_manager_apt = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Building Manager Apartment Number", "class":"form-control",}), label="Building Manager Apartment Number:")
-    # building_management_company
-    # building_management_person
-
-    
-    # #actual_rent = models.DecimalField(max_digits=20, decimal_places=2, null=False)
-    # #tenant = #from tenants
-    # #rent duration & renewal
 
     ## Utilities
     water_registry_no = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Water Registry Number", "class":"form-control",}), label="Water Registry Number:")
@@ -79,7 +72,7 @@ class AddPropertyForm(forms.ModelForm):
     class Meta:
         model = Property
         exclude = [
-            "created_at", "updated",
+            "created_at", "updated", "utilisation_status"
         ]
 
 
@@ -108,7 +101,7 @@ class EditPropertyForm(forms.ModelForm):
 
     ## Furnishing
     furniture_needed = forms.ChoiceField(required=True, choices=Property.FurnitureChoices, widget=forms.Select(attrs={"class":"form-control"}), label="Furnishing Needed, *Required Choise:")
-    furniture_provider = forms.ModelChoiceField(required=False, queryset=FurnitureProvider.objects.all(), widget=forms.Select(attrs={"class":"form-control"}), label="Furniture Provider:")
+    furniture_provider = forms.ModelChoiceField(required=True, queryset=FurnitureProvider.objects.all(), widget=forms.Select(attrs={"class":"form-control"}), label="Furniture Provider, *Required Choise:")
     furniture_progress = forms.ChoiceField(required=True, choices=Property.ProgressChoices, widget=forms.Select(attrs={"class":"form-control"}), label="Furnishing Progress, *Required Choise:")
     furniture_notes = forms.CharField(required=False, widget=forms.Textarea(attrs={"placeholder":"Furnishing Notes", "class":"form-control"}), label="Furnishing Notes:")
 

@@ -28,7 +28,6 @@ class Property(models.Model):
         no_management = "Not Managed"
         
     class UtilisationStatusChoices(models.TextChoices):
-        none = "None"
         rented = "Rented"
         vacant = "Vacant"
         remove_from_market = "Remove From Market"
@@ -70,7 +69,7 @@ class Property(models.Model):
 
     ## Utilisation
     utilisation = models.CharField(max_length=50, choices=UtilisationChoices.choices, null=False) #former "status" in PG
-    utilisation_status = models.CharField(max_length=50, choices=UtilisationStatusChoices.choices, null=False, blank=True) #former "status" in PG
+    utilisation_status = models.CharField(max_length=50, choices=UtilisationStatusChoices.choices, default="Vacant", null=False, blank=True) #former "status" in PG
 
     ## Rental Guarantee
     under_rental_guarantee = models.BooleanField(default=False, null=True)
@@ -85,13 +84,7 @@ class Property(models.Model):
     building_manager_first_name = models.CharField(max_length=100, null=False, blank=True)
     building_manager_last_name = models.CharField(max_length=100, null=False, blank=True)
     building_manager_phone = models.IntegerField(null=True)
-    building_manager_apt = models.CharField(max_length=10, null=False, blank=True)
-
-
-    #actual_rent = models.DecimalField(max_digits=20, decimal_places=2, null=False)
-    #tenant = 
-    #rent duration & renewal
-    
+    building_manager_apt = models.CharField(max_length=10, null=False, blank=True)    
 
     ## Utilities
     water_registry_no = models.CharField(max_length=20, null=False, blank=True)

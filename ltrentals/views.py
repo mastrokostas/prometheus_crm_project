@@ -6,6 +6,7 @@ from .models import RentalAgreement
 from .forms import AddRentalAgreementForm, EditRentalAgreementForm,TerminateRentalAgreementForm
 
 from properties.models import Property
+from tenants.models import Tenant
 
 # Create your views here.
 
@@ -29,6 +30,22 @@ def add_rental_agreement(request):
             tracked_property = Property.objects.get(id=cleaned_property.id)
             tracked_property.utilisation_status = "Rented"
             tracked_property.save()
+            #automate tenant activity
+            cleaned_tenant = form.cleaned_data.get('tenant')
+            tracked_tenant = Tenant.objects.get(id=cleaned_tenant.id)
+            try:
+                cleaned_tenant_2 = form.cleaned_data.get('tenant_2')
+                tracked_tenant_2 = Tenant.objects.get(id=cleaned_tenant_2.id)
+            except:
+                tracked_tenant.is_active = True
+                tracked_tenant.save()
+            else:
+                tracked_tenant.is_active = True
+                tracked_tenant.save()
+                tracked_tenant_2.is_active = True
+                tracked_tenant_2.save()
+            # finally:
+            #     pass
             form.save()
             messages.success(request, "Rental Agreement Added!")
             return redirect('all_rental_agreements')
