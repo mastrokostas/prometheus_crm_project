@@ -1,6 +1,8 @@
+from itertools import count
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.db.models import Q
 
 from .models import RentalAgreement
 from .forms import AddRentalAgreementForm, EditRentalAgreementForm,TerminateRentalAgreementForm
@@ -44,8 +46,6 @@ def add_rental_agreement(request):
                 tracked_tenant.save()
                 tracked_tenant_2.is_active = True
                 tracked_tenant_2.save()
-            # finally:
-            #     pass
             form.save()
             messages.success(request, "Rental Agreement Added!")
             return redirect('all_rental_agreements')
@@ -67,11 +67,28 @@ def terminate_rental_agreement(request,pk):
     selected_property = Property.objects.get(id=record.property.id)
     form = TerminateRentalAgreementForm(request.POST or None, instance=record)
     if form.is_valid():
-        selected_property.utilisation_status = "Vacant"
-        selected_property.save()
-        record.is_active = False        
-        record.save()
+        selected_property.utilisation_status = "Vacant"        
+        record.is_active = False       
+        #automate tenant deactivation        
+        tracked_tenant = Tenant.objects.get(id=record.tenant.id)
+        ra_count = RentalAgreement.objects.filter(Q(tenant=tracked_tenant) | Q(tenant_2=tracked_tenant)).filter(is_active=True).count()
+        try:
+            tracked_tenant_2 = Tenant.objects.get(id=record.tenant_2.id)
+            ra_count_2 = RentalAgreement.objects.filter(Q(tenant=tracked_tenant_2) | Q(tenant_2=tracked_tenant_2)).filter(is_active=True).count()
+        except:
+            if ra_count == 1:
+                tracked_tenant.is_active = False
+                tracked_tenant.save()
+        else:
+            if ra_count == 1:
+                tracked_tenant.is_active = False
+                tracked_tenant.save()            
+            if ra_count_2 == 1:
+                tracked_tenant_2.is_active = False
+                tracked_tenant_2.save()
         form.save()
+        record.save()
+        selected_property.save()           
         messages.success(request, "Rental Agreement has been terminated!")
         return redirect('rental_agreement_record', pk=record.pk)
     return render(request, 'ltrentals/terminate_rental_agreement.html', {'form': form, 'record': record})

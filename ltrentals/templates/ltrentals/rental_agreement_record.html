@@ -21,7 +21,7 @@ Rental Agreement record
         <strong>Landlord:</strong> <a href="{% url "landlord_record" record.property.owner_1.id %}">{{ record.property.owner_1}}</a>
       </div>
       <div>
-      <strong>Tenant:</strong> <a href="{% url "tenant_record" record.tenant.id %}">{{ record.tenant }}</a>
+      <strong>Tenant:</strong> <a href="{% url "tenant_record" record.tenant.id %}">{{ record.tenant }}</a> {% if record.tenant_2 %} & <a href="{% url "tenant_record" record.tenant_2.id %}">{{ record.tenant_2 }}</a>{% endif %}
       </div>
       <div>
         <strong>Actual Rent:</strong> {{ record.actual_rent }} €
