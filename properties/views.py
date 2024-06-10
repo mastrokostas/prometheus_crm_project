@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
+from ltrentals.models import RentalAgreement
+
 from .models import Property
 from .forms import AddPropertyForm, EditPropertyForm
 
@@ -15,7 +17,11 @@ def all_properties(request):
 @login_required(login_url='login')
 def property_record(request, pk):
     record = Property.objects.get(id=pk)
-    return render(request, 'properties/property_record.html', {'record': record})
+    try:
+        rental_agreement = RentalAgreement.objects.get(property=record, is_active=True)
+        return render(request, 'properties/property_record.html', {'record': record, 'rental_agreement':rental_agreement})
+    except:
+        return render(request, 'properties/property_record.html', {'record': record})
 
 @login_required(login_url='login')
 def add_property(request):

@@ -2,6 +2,7 @@ from django.db import models
 from django.core.validators import MaxValueValidator
 
 from landlords.models import Landlord
+
 from collaborators.models import Electricity, NaturalGas, SubContractor, FurnitureProvider, BuildingManagementCompany
 # Create your models here.
     
@@ -88,8 +89,9 @@ class Property(models.Model):
 
 
     #actual_rent = models.DecimalField(max_digits=20, decimal_places=2, null=False)
-    #tenant = #from tenants
+    #tenant = 
     #rent duration & renewal
+    
 
     ## Utilities
     water_registry_no = models.CharField(max_length=20, null=False, blank=True)

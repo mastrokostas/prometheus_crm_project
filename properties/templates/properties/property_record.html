@@ -80,6 +80,17 @@ Property record
           <div class="accordion-body">                      
             <strong>Status:</strong> <strong style="color:{% if record.utilisation_status == "Rented" %}green{% elif record.utilisation_status == "Vacant" %}orange{% else %}red{% endif %};">{{ record.utilisation_status }}</strong> 
           </div>
+            {% if record.utilisation_status == "Rented" %}
+            <div class="accordion-body"> 
+              <strong>Current Tenant:</strong> <a href="{% url "tenant_record" rental_agreement.tenant.id %}">{{ rental_agreement.tenant }}</a> {% if rental_agreement.tenant_2 %} & <a href="{% url "tenant_record" rental_agreement.tenant_2.id %}">{{ rental_agreement.tenant_2 }}</a>{% endif %}
+            </div> 
+            <div class="accordion-body">
+              <strong>Current Rent:</strong> {{ rental_agreement.actual_rent }}
+            </div>
+            <div class="accordion-body">
+              <strong>Duration:</strong> {{ rental_agreement.rental_agreement_starting_date|date:"d/m/o" }} - {{ rental_agreement.rental_agreement_ending_date|date:"d/m/o" }}
+            </div>    
+            {% endif %} 
           {% endif %}
           <div class="accordion-body">
             <strong>Management Fee:</strong> {{ record.management_fee }} €
