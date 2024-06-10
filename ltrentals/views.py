@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from .models import RentalAgreement
-from .forms import AddRentalAgreement
+from .forms import AddRentalAgreementForm, EditRentalAgreementForm
 
 from properties.models import Property
 
@@ -19,8 +19,9 @@ def rental_agreement_record(request, pk):
     record = RentalAgreement.objects.get(id=pk)
     return render(request, 'ltrentals/rental_agreement_record.html', {'record':record})
 
+@login_required(login_url='login')
 def add_rental_agreement(request):
-    form = AddRentalAgreement(request.POST or None, initial={'security_deposits':2})
+    form = AddRentalAgreementForm(request.POST or None, initial={'security_deposits':2})
     if request.method == 'POST':
         if form.is_valid():
             #automate utilisation status
@@ -32,3 +33,13 @@ def add_rental_agreement(request):
             messages.success(request, "Rental Agreement Added!")
             return redirect('all_rental_agreements')
     return render(request, 'ltrentals/add_rental_agreement.html', {'form':form})
+
+@login_required(login_url='login')
+def edit_rental_agreement(request, pk):
+    record = RentalAgreement.objects.get(id=pk)
+    form = EditRentalAgreementForm(request.POST or None, instance=record)
+    if form.is_valid():
+        form.save()
+        messages.success(request, "Rental Agreement's information has been updated!")
+        return redirect('rental_agreement_record', pk=record.pk)
+    return render(request, 'ltrentals/edit_rental_agreement.html', {'form': form, 'record': record})

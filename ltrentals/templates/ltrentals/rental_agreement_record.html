@@ -18,21 +18,31 @@ Rental Agreement record
     </div>
     <div class="card-body">
       <div>
-      <strong>Tenant: </strong> <a href="{% url "tenant_record" record.tenant.id %}">{{ record.tenant }}</a>
+        <strong>Landlord:</strong> <a href="{% url "landlord_record" record.property.owner_1.id %}">{{ record.property.owner_1}}</a>
       </div>
       <div>
-        <strong>Landlord: </strong> <a href="{% url "landlord_record" record.property.owner_1.id %}">{{ record.property.owner_1}}</a>
+      <strong>Tenant:</strong> <a href="{% url "tenant_record" record.tenant.id %}">{{ record.tenant }}</a>
       </div>
       <div>
-        <strong>Actual Rent: </strong> {{ record.actual_rent }} €
+        <strong>Actual Rent:</strong> {{ record.actual_rent }} €
       </div>
       <div>
-        <strong>Security Deposits: </strong> {{ record.security_deposits }} monthly rent(s)
+        <strong>Security Deposits:</strong> {{ record.security_deposits }} monthly rent(s)
       </div>
+      <div>
+        <strong>Duration:</strong> {{ record.rental_agreement_starting_date|date:"d/m/o" }} - {{ record.rental_agreement_ending_date|date:"d/m/o" }}
+      </div>
+      {% if rental_agreement_notes %}
+      <div>
+        <strong>Notes:</strong> 
+      </br>
+        {{ record.rental_agreement_notes }}
+      </div>
+      {% endif %}
     </div>
     <div class="card-footer text-body-secondary">
       {% if record.is_active == True %}
-      <strong style="color:green;">Active</strong>
+      <strong style="color:green;">Active</strong> - <strong><a id="edit" href="{% url "edit_rental_agreement" record.id %}">Edit</a></strong> - <strong style="color:#dc3545;">Terminate</strong>
       {% else %}
       <strong style="color:grey;">Inactive</strong>
       {% endif %}

@@ -4,14 +4,50 @@ a {
     
 }
 
-a:hover{
+a:hover {
     color:#008080;
     /* Teal color name */
     text-decoration: none;
     font-weight: none;
 }
 
-a:active{
+a:active {
+    color:#98AFC7;
+    /* Metalic Silver color name */
+    text-decoration: none;
+    font-weight: none;
+}
+
+#rented {
+    color: green;
+}
+
+#rented:hover {
+    color:#008080;
+    /* Teal color name */
+    text-decoration: none;
+    font-weight: none;
+}
+
+#rented:active {
+    color:#98AFC7;
+    /* Metalic Silver color name */
+    text-decoration: none;
+    font-weight: none;
+}
+
+#edit {
+    color:#0dcaf0;
+}
+
+#edit:hover {
+    color:#008080;
+    /* Teal color name */
+    text-decoration: none;
+    font-weight: none;
+}
+
+#edit:active {
     color:#98AFC7;
     /* Metalic Silver color name */
     text-decoration: none;
