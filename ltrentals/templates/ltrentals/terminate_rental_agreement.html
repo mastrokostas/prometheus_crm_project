@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static "global/forms.css" %}">
+{% endblock css_files %}
+
+{% block title %}
+Terminate Rental Agreement
+{% endblock title %}
+
+{% block content %}
+<center><h1>Terminate Rental Agreement</h1></center>
+</br>
+
+<div>
+    <center>You are about to <strong style="color:red;">terminate</strong> the rental agreement for property {{ record.property.property_id }}:
+    </br>
+         {{ record.property }}</center>
+</div>
+<div>
+    <center>{{ record.property.owner_1 }} {% if record.property.owner_2 %} & {{ record.property.owner_2 }}{% endif %} to {{ record.tenant }} {% if record.tenant_2 %} & {{ record.tenant_2 }} {% endif %}</center>
+</div>
+
+
+<form method="POST">
+    {% csrf_token %}
+    {% for field in form %}
+    <div class=" form_control {% if field.errors %} errors{% endif %}">
+        <label class="{% if field.field.required == True %}required{% endif %}" for="{{ field.auto_id }}">{{ field.label }}</label>
+        {{ field }}
+        {{ field.errors }}        
+    </div>
+    {% endfor %}
+    <br/>
+    <button type="submit" class="btn btn-success">
+        Terminate
+    </button>
+    <a href="{% url "rental_agreement_record" record.id %}" class="btn btn-danger">Cancel</a>
+    <a href="{% url "all_rental_agreements" %}" class="btn btn-secondary">Cancel and Back to All Rental Agreements</a>
+</form>
+{% endblock content %}

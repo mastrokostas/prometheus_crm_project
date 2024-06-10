@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from .models import RentalAgreement
-from .forms import AddRentalAgreementForm, EditRentalAgreementForm
+from .forms import AddRentalAgreementForm, EditRentalAgreementForm,TerminateRentalAgreementForm
 
 from properties.models import Property
 
@@ -43,3 +43,18 @@ def edit_rental_agreement(request, pk):
         messages.success(request, "Rental Agreement's information has been updated!")
         return redirect('rental_agreement_record', pk=record.pk)
     return render(request, 'ltrentals/edit_rental_agreement.html', {'form': form, 'record': record})
+
+@login_required(login_url='login')
+def terminate_rental_agreement(request,pk):
+    record = RentalAgreement.objects.get(id=pk)
+    selected_property = Property.objects.get(id=record.property.id)
+    form = TerminateRentalAgreementForm(request.POST or None, instance=record)
+    if form.is_valid():
+        selected_property.utilisation_status = "Vacant"
+        selected_property.save()
+        record.is_active = False        
+        record.save()
+        form.save()
+        messages.success(request, "Rental Agreement has been terminated!")
+        return redirect('rental_agreement_record', pk=record.pk)
+    return render(request, 'ltrentals/terminate_rental_agreement.html', {'form': form, 'record': record})

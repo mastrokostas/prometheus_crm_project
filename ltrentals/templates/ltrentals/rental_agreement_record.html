@@ -42,7 +42,7 @@ Rental Agreement record
     </div>
     <div class="card-footer text-body-secondary">
       {% if record.is_active == True %}
-      <strong style="color:green;">Active</strong> - <strong><a id="edit" href="{% url "edit_rental_agreement" record.id %}">Edit</a></strong> - <strong style="color:#dc3545;">Terminate</strong>
+      <strong style="color:green;">Active</strong> - <strong><a id="edit" href="{% url "edit_rental_agreement" record.id %}">Edit</a></strong> - <strong style="color:#dc3545;"><a href="{% url "terminate_rental_agreement" record.id %}">Terminate</a></strong>
       {% else %}
       <strong style="color:grey;">Inactive</strong>
       {% endif %}
