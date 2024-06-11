@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static "global/forms.css" %}">
+{% endblock css_files %}
+
+{% block title %}
+New Rent Payment
+{% endblock title %}
+
+{% block content %}
+<center><h1>New Rent Payment</h1></center>
+
+<form method="POST" action="{% url 'add_payment' %}">
+    {% csrf_token %}
+    {% for field in form %}
+    <div class=" form_control {% if field.errors %} errors{% endif %}">
+        <label class="{% if field.field.required == True %}required{% endif %}" for="{{ field.auto_id }}">{{ field.label }}</label>
+        {{ field }}
+        {{ field.errors }}
+    </div>
+    {% endfor %}
+    <br/>
+    <button type="submit" class="btn btn-success">
+        Save New Rent Payment
+    </button>
+    <a href="{% url 'all_rental_agreements' %}" class="btn btn-danger">Cancel</a>
+</form>
+{% endblock content %}

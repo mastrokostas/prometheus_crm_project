@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import RentalAgreement
+from .models import RentalAgreement, MonthlyPayment
 
 # Register your models here.
 
@@ -13,4 +13,8 @@ class RentalAgreementAdmin(admin.ModelAdmin):
     def duration(self, instance):
         return f"{instance.rental_agreement_starting_date} to {instance.rental_agreement_ending_date}"
 
-admin.site.register(RentalAgreement,RentalAgreementAdmin)
+class MonthlyPaymentAdmin(admin.ModelAdmin):
+    list_display = ('id', 'rental_agreement', 'paid_month',)
+
+admin.site.register(RentalAgreement, RentalAgreementAdmin)
+admin.site.register(MonthlyPayment, MonthlyPaymentAdmin)

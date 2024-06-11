@@ -26,12 +26,14 @@ All Rental Agreements
             <th scope="col">Starting Date</th>
             <th scope="col">Ending Date</th>
             <th scope="col">Rent</th>
+            <th scope="col">Months Owed</th>
             <th scope="col">Active</th>            
           </tr>
         </thead>
         <tbody class="table-group-divider">
             {% if rental_agreements %}
                 {% for rental_agreement in rental_agreements %}
+                
                 <tr>
                     <td><a href="{% url "landlord_record" rental_agreement.property.owner_1.id %}">{{ rental_agreement.property.owner_1.file_type }}.{{ rental_agreement.property.owner_1.file_number }}</a>
                         {% if rental_agreement.property.owner_2 %} & <a href="{% url "landlord_record" rental_agreement.property.owner_2.id %}">{{ rental_agreement.property.owner_2.file_type }}.{{ rental_agreement.property.owner_2.file_number }}</a>{% endif %}
@@ -41,7 +43,8 @@ All Rental Agreements
                     <td><a href="{% url "rental_agreement_record" rental_agreement.id %}">{{ rental_agreement.rental_agreement_name|title }}</a></td>
                     <td>{{ rental_agreement.rental_agreement_starting_date|date:"d/m/o" }}</td>
                     <td>{{ rental_agreement.rental_agreement_ending_date|date:"d/m/o" }}</td>
-                    <td>{{ rental_agreement.actual_rent }}</td>  
+                    <td>{{ rental_agreement.actual_rent }} €</td> 
+                    <td><strong style="color:{% if rental_agreement.months_owed == 1 %}orange{% elif rental_agreement.months_owed == 0 %}black{% else %}red{% endif %};"> {{ rental_agreement.months_owed }}</strong></td> 
                     {% if rental_agreement.is_active == True %}
                     <td style="color:green;">
                         Active
@@ -52,6 +55,7 @@ All Rental Agreements
                     </td>
                     {% endif %}                 
                 </tr>
+                
                 {% endfor %}
             {% endif %}
         </tbody>
