@@ -33,15 +33,16 @@ def all_rental_agreements(request):
             months_paid = record.months_paid
             months_passed = get_months_passed(start_date,today) +1
             months_still_owed = months_passed - months_paid
-            record.months_owed = months_still_owed
+            record.months_owed = months_still_owed            
+            #calculate expiring
+            end_date = record.rental_agreement_ending_date
+            expiration = get_difference(today,end_date)
+            if expiration <= 6:
+                record.expiring = True
+            else:
+                record.expiring = False
+            #save recalculated stuff
             record.save()
-            #calculate months owed
-
-            #calculate expiring
-
-            #calculate expiring
-    
-    print(rental_agreements)
     return render(request, 'ltrentals/all_rental_agreements.html', {'rental_agreements':rental_agreements})
 
 @login_required(login_url='login')

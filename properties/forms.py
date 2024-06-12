@@ -72,7 +72,7 @@ class AddPropertyForm(forms.ModelForm):
     class Meta:
         model = Property
         exclude = [
-            "created_at", "updated", "utilisation_status"
+            "created_at", "updated", "utilisation_status", "rg_expiring",
         ]
 
 
@@ -145,5 +145,5 @@ class EditPropertyForm(forms.ModelForm):
     class Meta:
         model = Property
         exclude = [
-            "created_at", "updated",
+            "created_at", "updated", "rg_expiring",
         ]

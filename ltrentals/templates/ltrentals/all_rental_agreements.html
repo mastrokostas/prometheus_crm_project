@@ -42,7 +42,7 @@ All Rental Agreements
                     <td><a href="{% url "tenant_record" rental_agreement.tenant.id %}">{{ rental_agreement.tenant|title }}</a> {% if rental_agreement.tenant_2 %} & <a href="{% url "tenant_record" rental_agreement.tenant_2.id %}">{{ rental_agreement.tenant_2 }}</a>{% endif %}</td>
                     <td><a href="{% url "rental_agreement_record" rental_agreement.id %}">{{ rental_agreement.rental_agreement_name|title }}</a></td>
                     <td>{{ rental_agreement.rental_agreement_starting_date|date:"d/m/o" }}</td>
-                    <td>{{ rental_agreement.rental_agreement_ending_date|date:"d/m/o" }}</td>
+                    <td {% if rental_agreement.expiring == True and rental_agreement.is_active == True %}style="color:red;"{% endif %}>{{ rental_agreement.rental_agreement_ending_date|date:"d/m/o" }}</td>
                     <td>{{ rental_agreement.actual_rent }} €</td> 
                     <td><strong style="color:{% if rental_agreement.months_owed == 1 %}orange{% elif rental_agreement.months_owed == 0 %}black{% elif rental_agreement.months_owed > 1 %}red{% else %}blue{% endif %};"> {{ rental_agreement.months_owed }}</strong></td> 
                     {% if rental_agreement.is_active == True %}

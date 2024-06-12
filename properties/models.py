@@ -77,13 +77,14 @@ class Property(models.Model):
     rg_percentage = models.PositiveIntegerField(validators=[MaxValueValidator(100)], null=True, blank=True)
     rg_starting = models.DateField(null=True, blank=True)
     rg_ending = models.DateField(null=True, blank=True)
+    rg_expiring = models.BooleanField(default=False, null=False)
 
     ## Management
     management_fee = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
     building_management_company = models.ForeignKey(BuildingManagementCompany, null=False, blank=False, on_delete=models.CASCADE, related_name="building_management_company")
     building_manager_first_name = models.CharField(max_length=100, null=False, blank=True)
     building_manager_last_name = models.CharField(max_length=100, null=False, blank=True)
-    building_manager_phone = models.IntegerField(null=True, default=0)
+    building_manager_phone = models.IntegerField(null=True, default=0, blank=True)
     building_manager_apt = models.CharField(max_length=10, null=False, blank=True)    
 
     ## Utilities
