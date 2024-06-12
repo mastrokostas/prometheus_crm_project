@@ -48,10 +48,12 @@ class AddPropertyForm(forms.ModelForm):
     ## Management
     management_fee = forms.DecimalField(required=False, widget=forms.widgets.NumberInput(attrs={"placeholder":"Management Fee €: (include decimal places if applicable)", "class":"form-control"}), label="Management Fee:")
     building_management_company = forms.ModelChoiceField(required=True, queryset=BuildingManagementCompany.objects.all(), widget=forms.Select(attrs={"class":"form-control"}), label="Building Management Company, *Required:")
-    building_manager_first_name = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Building Manager First Name", "class":"form-control"}), label="Building Manager First Name:")
-    building_manager_last_name = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Building Manager Last Name", "class":"form-control"}), label="Building Manager Last Name:")
-    building_manager_phone = forms.IntegerField(required=False, widget=forms.widgets.NumberInput(attrs={"placeholder":"Building Manager Phone Number", "class":"form-control"}), label="Building Manager Phone Number:")
-    building_manager_apt = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Building Manager Apartment Number", "class":"form-control",}), label="Building Manager Apartment Number:")
+    building_manager_first_name = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Building Manager First Name", "class":"form-control"}), label="Building Manager's First Name:")
+    building_manager_last_name = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Building Manager Last Name", "class":"form-control"}), label="Building Manager's Last Name:")
+    building_manager_phone = forms.IntegerField(required=False, widget=forms.widgets.NumberInput(attrs={"placeholder":"Building Manager Phone Number", "class":"form-control"}), label="Building Manager's Phone Number:")
+    building_manager_email = forms.EmailField(required=False, widget=forms.widgets.EmailInput(attrs={"placeholder":"email@domain.tdl", "class":"form-control"}), label="Building Manager's Email:")
+    building_manager_apt = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Building Manager Apartment Number", "class":"form-control",}), label="Building Manager's Apartment Number:")
+    building_manager_iban = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Building Manager Apartment Number", "class":"form-control",}), label="Building Manager's IBAN:")
 
     ## Utilities
     water_registry_no = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Water Registry Number", "class":"form-control",}), label="Water Registry Number:")
@@ -118,10 +120,12 @@ class EditPropertyForm(forms.ModelForm):
     
     management_fee = forms.DecimalField(required=False, widget=forms.widgets.NumberInput(attrs={"placeholder":"Management Fee €: (include decimal places if applicable)", "class":"form-control"}), label="Management Fee:")
     building_management_company = forms.ModelChoiceField(required=True, queryset=BuildingManagementCompany.objects.all(), widget=forms.Select(attrs={"class":"form-control"}), label="Building Management Company, *Required:")
-    building_manager_first_name = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Building Manager First Name", "class":"form-control"}), label="Building Manager First Name:")
-    building_manager_last_name = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Building Manager Last Name", "class":"form-control"}), label="Building Manager Last Name:")
-    building_manager_phone = forms.IntegerField(required=False, widget=forms.widgets.NumberInput(attrs={"placeholder":"Building Manager Phone Number", "class":"form-control"}), label="Building Manager Phone Number:")
-    building_manager_apt = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Building Manager Apartment Number", "class":"form-control",}), label="Building Manager Apartment Number:")
+    building_manager_first_name = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Building Manager First Name", "class":"form-control"}), label="Building Manager's First Name:")
+    building_manager_last_name = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Building Manager Last Name", "class":"form-control"}), label="Building Manager's Last Name:")
+    building_manager_phone = forms.IntegerField(required=False, widget=forms.widgets.NumberInput(attrs={"placeholder":"Building Manager Phone Number", "class":"form-control"}), label="Building Manager's Phone Number:")
+    building_manager_email = forms.EmailField(required=False, widget=forms.widgets.EmailInput(attrs={"placeholder":"email@domain.tdl", "class":"form-control"}), label="Building Manager's Email:")
+    building_manager_apt = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Building Manager Apartment Number", "class":"form-control",}), label="Building Manager's Apartment Number:")
+    building_manager_iban = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder":"Building Manager Apartment Number", "class":"form-control",}), label="Building Manager's IBAN:")
     # #actual_rent = models.DecimalField(max_digits=20, decimal_places=2, null=False)
     # #tenant = #from tenants
     # #rent duration & renewal

@@ -26,6 +26,7 @@ class Landlord(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    
     file_type = models.CharField(max_length=2, choices=FILE_TYPE_CHOICES, null=False)
     file_number = models.PositiveSmallIntegerField(null=False) #, unique=True will conflict with M
     first_name = models.CharField(max_length=100, null=False)

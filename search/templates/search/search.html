@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static "global/global.css" %}">
+{% endblock css_files %}
+
+{% block title %}
+Search
+{% endblock title %}
+
+{% block content %}
+    <center>
+    {% if searched %}
+        <h1>You searched for "{{ searched }}"</h1>
+        <br/>
+        {% if properties %}
+        <h4>Results in Properties:</h4>
+        {% for property in properties %}
+            <a href="{% url "property_record" property.id %}">{{ property }}</a>
+            </br>
+        {% endfor %}
+        </br>
+        {% endif %}        
+        {% if landlords %}
+        <h4>Results in Landlords:</h4>
+        {% for landlord in landlords %}
+            <a href="{% url "landlord_record" landlord.id %}">{{ landlord }}</a>
+            </br>
+        {% endfor %}
+        </br>
+        {% endif %}        
+        {% if tenants %}
+        <h4>Results in Tenants:</h4>
+        {% for tenant in tenants %}
+            <a href="{% url "tenant_record" tenant.id %}">{{tenant}}</a>
+            </br>
+        {% endfor %}
+        </br>
+        {% endif %}        
+        {% if legals %}
+        <h4>Results in Legal Companies</h4>
+        {% for legal in legals %}
+           <a href="{% url "legal" %}">{{legal}}</a>
+            </br>
+        {% endfor %}
+        </br>
+        {% endif %}        
+        {% if electricity_companies %}
+        <h4>Results in Electricity Companies</h4>
+        {% for record in electricity_companies %}
+            <a href="{% url "electricity" %}">{{ record }}</a>
+            </br>
+        {% endfor %}
+        </br>
+        {% endif %}
+        {% if lng_companies %}
+        <h4>Results in Natural Gas Companies</h4>
+        {% for record in lng_companies %}
+            <a href="{% url "natural_gas" %}">{{ record }}</a>
+            </br>
+        {% endfor %}
+        </br>
+        {% endif %}
+        {% if management_companies %}
+        <h4>Results in Building Management Companies</h4>
+        {% for record in management_companies %}
+            <a href="{% url "building_managers" %}">{{ record }}</a>
+            </br>
+        {% endfor %}
+        </br>
+        {% endif %}
+        {% if sub_contractors %}
+        <h4>Results in Sub Contractors</h4>
+        {% for sub_contractor in sub_contractors %}
+            <a href="{% url "sub_contractors" %}">{{ sub_contractor }}</a>
+            </br>
+        {% endfor %}
+        </br>
+        {% endif %}
+        {% if furniture_providers %}
+        <h4>Results in Furniture Providers</h4>
+        {% for record in furniture_providers %}
+            <a href="{% url "furniture_providers" %}">{{ record }}</a>
+            </br>
+        {% endfor %}
+        </br>
+        {% endif %}        
+    {% else %}
+        <h1>Hey! You forgot to search for... anything!</h1>
+    {% endif %}
+    </center>
+{% endblock content %}

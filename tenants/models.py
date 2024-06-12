@@ -17,6 +17,7 @@ class Tenant(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    
     first_name = models.CharField(max_length=100, null=False)
     last_name = models.CharField(max_length=100, null=False)
     fathers_name = models.CharField(max_length=100, blank=True, null=False)

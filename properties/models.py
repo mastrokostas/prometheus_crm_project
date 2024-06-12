@@ -85,7 +85,9 @@ class Property(models.Model):
     building_manager_first_name = models.CharField(max_length=100, null=False, blank=True)
     building_manager_last_name = models.CharField(max_length=100, null=False, blank=True)
     building_manager_phone = models.IntegerField(null=True, default=0, blank=True)
+    building_manager_email = models.EmailField(max_length=50, null=False, blank=True)
     building_manager_apt = models.CharField(max_length=10, null=False, blank=True)    
+    building_manager_iban = models.CharField(max_length=100, null=False, blank=True)
 
     ## Utilities
     water_registry_no = models.CharField(max_length=20, null=False, blank=True)
@@ -110,11 +112,11 @@ class Property(models.Model):
         return f"{self.address} {self.municipality}"
     
 
-class PropertyBuildingManager(models.Model):
+# class PropertyBuildingManager(models.Model):
 
-    manager_name = models.CharField(max_length=50, null=False, blank=True)
-    manager_phone = models.CharField(max_length=25, null=False, blank=True)
-    manager_email = models.EmailField(max_length=50, null=False, blank=True)
-    manager_bank_name = models.CharField(max_length=25, null=False, blank=True)
-    manager_iban = models.CharField(max_length=25, null=False, blank=True)
-    manager_notes = models.TextField(blank=True, null=False)
+#     manager_name = models.CharField(max_length=50, null=False, blank=True)
+#     manager_phone = models.CharField(max_length=25, null=False, blank=True)
+    
+#     manager_bank_name = models.CharField(max_length=25, null=False, blank=True)
+    
+#     manager_notes = models.TextField(blank=True, null=False)
