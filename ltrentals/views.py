@@ -108,7 +108,16 @@ def edit_rental_agreement(request, pk):
     record = RentalAgreement.objects.get(id=pk)
     form = EditRentalAgreementForm(request.POST or None, instance=record)
     if form.is_valid():
-        form.save()
+        #calculate total months
+        cleaned_start_date = form.cleaned_data.get('rental_agreement_starting_date')
+        cleaned_end_date = form.cleaned_data.get('rental_agreement_ending_date')
+        difference=get_difference(cleaned_start_date,cleaned_end_date)
+        #make new object and insert total months and months remaining
+        new_object = form.save(commit=False)
+        new_object.total_months = difference
+        new_object.months_remaining = difference - record.months_paid
+        new_object.save()
+        #form.save()
         messages.success(request, "Rental Agreement's information has been updated!")
         return redirect('rental_agreement_record', pk=record.pk)
     return render(request, 'ltrentals/edit_rental_agreement.html', {'form': form, 'record': record})
@@ -147,7 +156,7 @@ def terminate_rental_agreement(request,pk):
 
 @login_required(login_url='login')
 def add_payment(request):
-    form = AddPaymentForm(request.POST or None) #, initial={'rental_agreement':record.id}
+    form = AddPaymentForm(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():            
             rental_agreement = form.cleaned_data.get('rental_agreement')

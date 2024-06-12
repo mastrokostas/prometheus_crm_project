@@ -25,8 +25,8 @@ class AddRentalAgreementForm(forms.ModelForm):
 class EditRentalAgreementForm(forms.ModelForm):
 
     rental_agreement_name = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Rental Agreement Name", "class":"form-control"}), label="Rental Agreement Name, *Required:")
-    tenant = forms.ModelChoiceField(required=True, queryset=Tenant.objects.filter(is_blacklisted=False).order_by('last_name'), widget=forms.Select(attrs={"class":"form-control"}), label="Select Tenant, *Required:")
-    tenant_2 = forms.ModelChoiceField(required=False, queryset=Tenant.objects.filter(is_blacklisted=False).order_by('last_name'), widget=forms.Select(attrs={"class":"form-control"}), label="Select Second Tenant If Applicable:")
+    #tenant = forms.ModelChoiceField(required=True, queryset=Tenant.objects.filter(is_blacklisted=False).order_by('last_name'), widget=forms.Select(attrs={"class":"form-control"}), label="Select Tenant, *Required:")
+    #tenant_2 = forms.ModelChoiceField(required=False, queryset=Tenant.objects.filter(is_blacklisted=False).order_by('last_name'), widget=forms.Select(attrs={"class":"form-control"}), label="Select Second Tenant If Applicable:")
     actual_rent = forms.DecimalField(required=True, widget=forms.widgets.NumberInput(attrs={"placeholder":"Rent €: (include decimal places if applicable)", "class":"form-control"}), label="Rent, *Required:")
     security_deposits = forms.IntegerField(required=True, widget=forms.widgets.NumberInput(attrs={"class":"form-control"}), label="Security Deposits Paid, *Required:")
     rental_agreement_starting_date = forms.DateField(required=True, widget=forms.widgets.DateInput(attrs={"type":"date", "class":"form-control"}), label="Select Rental Agreement Starting Date, *Required:")
@@ -36,7 +36,7 @@ class EditRentalAgreementForm(forms.ModelForm):
     class Meta:
         model = RentalAgreement
         exclude = [
-            "created_at", "updated", "is_active", "property", "total_months", "payments", "months_paid", "months_remaining", "months_owed", "expiring",
+            "created_at", "updated", "is_active", "property", "total_months", "payments", "months_paid", "months_remaining", "months_owed", "expiring", "tenant", "tenant_2",
         ]
 
 class TerminateRentalAgreementForm(forms.ModelForm):

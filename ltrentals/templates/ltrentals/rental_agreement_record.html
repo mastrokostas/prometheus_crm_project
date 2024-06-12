@@ -33,22 +33,22 @@ Rental Agreement record
       </div>
       <div>
         <strong>Duration:</strong> {{ record.rental_agreement_starting_date|date:"d/m/o" }} - {{ record.rental_agreement_ending_date|date:"d/m/o" }}
+      </div>      
+      <div>
+        <strong>Months Owed:</strong> <strong style="color:{% if months_owed == 1 %}orange{% elif months_owed == 0 %}black{% elif months_owed > 1 %}red{% else %}blue{% endif %};">{{months_owed}}</strong>
       </div>
-      {% if rental_agreement_notes %}
+      {% if record.rental_agreement_notes %}
       <div>
         <strong>Notes:</strong> 
       </br>
         {{ record.rental_agreement_notes }}
       </div>
-      {% endif %}
-      <div>
-        <strong>Months Owed:</strong> <strong style="color:{% if months_owed == 1 %}orange{% elif months_owed == 0 %}black{% elif months_owed > 1 %}red{% else %}blue{% endif %};">{{months_owed}}</strong>
-      </div>      
+      {% endif %}      
     </div>
     <div class="card-footer text-body-secondary">
       {% if record.is_active == True %}
       <strong style="color:green;">Active</strong> - 
-      {% comment %} <strong><a id="edit" href="{% url "edit_rental_agreement" record.id %}">Edit</a></strong> -  {% endcomment %}
+      <strong><a id="edit" href="{% url "edit_rental_agreement" record.id %}">Edit</a></strong> - 
       <strong><a  id="terminate" href="{% url "terminate_rental_agreement" record.id %}">Terminate</a></strong>
       {% else %}
       <strong style="color:grey;">Inactive</strong>
