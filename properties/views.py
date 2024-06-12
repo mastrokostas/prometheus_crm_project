@@ -6,7 +6,7 @@ from django.contrib import messages
 from ltrentals.models import RentalAgreement
 
 from .models import Property
-from .forms import AddPropertyForm, EditPropertyForm
+from .forms import AddPropertyForm, EditPropertyForm, EditUtilisationInformationForm
 
 # Create your views here.
 today = datetime.today()
@@ -69,3 +69,13 @@ def all_rental_guarantees(request):
         else:
             messages.success(request, "Update Rental Guarantee information for property ID: " + str(property.property_id))
     return render(request, 'properties/all_rental_guarantees.html', {"properties":properties})
+
+@login_required(login_url='login')
+def edit_utilisation_information(request,pk):
+    record = Property.objects.get(id=pk)
+    form = EditUtilisationInformationForm(request.POST or None, instance=record)
+    if form.is_valid():
+        form.save()
+        messages.success(request, "Property's Utilisation information has been updated!")
+        return redirect('property_record', pk=record.pk)
+    return render(request, 'properties/edit_utilisation_information.html', {'form': form, 'record': record})

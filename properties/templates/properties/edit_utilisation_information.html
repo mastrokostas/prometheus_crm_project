@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static "global/forms.css" %}">
+{% endblock css_files %}
+
+{% block title %}
+Edit Utilisation Information
+{% endblock title %}
+
+{% block content %}
+<center><h1>Edit Utilisation Information</h1></center>
+
+<form method="POST">
+    {% csrf_token %}
+    {% for field in form %}
+    <div class=" form_control {% if field.errors %} errors{% endif %}">
+        <label class="{% if field.field.required == True %}required{% endif %}" for="{{ field.auto_id }}">{{ field.label }}</label>
+        {{ field }}
+        {{ field.errors }}
+    </div>
+    {% endfor %}
+    <br/>
+    <button type="submit" class="btn btn-success">
+        Update Record
+    </button>
+    <a href="{% url "property_record" record.id %}" class="btn btn-danger">Cancel</a>
+    <a href="{% url "all_properties" %}" class="btn btn-secondary">Cancel and Back to All Properties</a>
+</form>
+
+{% endblock content %}

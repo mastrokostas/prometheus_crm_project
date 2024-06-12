@@ -107,7 +107,7 @@ class EditPropertyForm(forms.ModelForm):
 
     ## Utilisation
     utilisation = forms.ChoiceField(required=True, choices=Property.UtilisationChoices, widget=forms.Select(attrs={"class":"form-control"}), label="Utilisation, *Required Choise:")
-    utilisation_status = forms.ChoiceField(required=False, choices=Property.UtilisationStatusChoices, widget=forms.Select(attrs={"class":"form-control"}), label="Utilisation status, only if applicable:")
+    #utilisation_status = forms.ChoiceField(required=False, choices=Property.UtilisationStatusChoices, widget=forms.Select(attrs={"class":"form-control"}), label="Utilisation status, only if applicable:")
 
     ## Rental Guarantee
     under_rental_guarantee = forms.BooleanField(required=False, label="Rental Guarantee Active?")
@@ -145,5 +145,23 @@ class EditPropertyForm(forms.ModelForm):
     class Meta:
         model = Property
         exclude = [
-            "created_at", "updated", "rg_expiring",
+            "created_at", "updated", "rg_expiring", "utilisation_status",
+        ]
+
+class EditUtilisationInformationForm(forms.ModelForm):
+
+    UTILISATION_STATUS_CHOICES = {
+        "Vacant" : "Vacant",
+        "Remove From Market" : "Remove From Market",
+    }
+    
+    utilisation_status = forms.CharField(required=False, widget=forms.Select(attrs={"class":"form-control"}, choices=UTILISATION_STATUS_CHOICES), label="Utilisation status:")
+
+
+    #forms.CharField(required=True, widget=forms.Select(attrs={"class":"form-control"}, choices=NATIONALITY_CHOICES), label="Nationality, *Required Choice:")
+
+    class Meta:
+        model = Property
+        fields = [
+            "utilisation_status",
         ]

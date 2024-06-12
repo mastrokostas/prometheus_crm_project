@@ -99,6 +99,11 @@ Property record
           <div class="accordion-body">
             <strong>Management Fee:</strong> {{ record.management_fee }} €
           </div>
+          {% if record.utilisation == "Long-Term Rental" and record.utilisation_status != "Rented" %}
+          <div class="accordion-body">
+            <strong><a id="edit" href="{% url "edit_utilisation_information" record.id %}">Edit Utilisation Information</a></strong>
+          </div>
+          {% endif %}
         </div>
     </div>
     <div class="accordion-item">

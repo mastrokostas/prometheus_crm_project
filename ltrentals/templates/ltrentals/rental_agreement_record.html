@@ -16,7 +16,7 @@ Rental Agreement record
 </br>
 <div class="card text-center">
     <div class="card-header">
-      <a href="{% url "property_record" record.property.id %}">{{record.property.address}}, {{record.property.municipality}}, {{record.property.zip_code}}</a>
+      <a href="{% url "property_record" record.property.id %}">ID {{record.property.property_id}} - {{record.property.address}}, {{record.property.municipality}}, {{record.property.zip_code}}</a>
     </div>
     <div class="card-body">
       <div>

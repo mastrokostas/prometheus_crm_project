@@ -47,7 +47,7 @@ class EditTenantForm(forms.ModelForm):
     id_type = forms.CharField(required=True, widget=forms.Select(attrs={"class":"form-control"}, choices=ID_CHOICES), label="Identification Type, *Required Choice:")
     id_number = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"ID or Passport Number", "class":"form-control"}), label="ID or Passport Number, *Required:")
     nationality = forms.CharField(required=True, widget=forms.Select(attrs={"class":"form-control"}, choices=NATIONALITY_CHOICES), label="Nationality, *Required Choice:")
-    is_active = forms.BooleanField(required=False)
+    #is_active = forms.BooleanField(required=False)
     is_blacklisted = forms.BooleanField(required=False)
     legal_action = forms.BooleanField(required=False)
     notes = forms.CharField(required=False, widget=forms.Textarea(attrs={"placeholder":"Notes for Tenant", "class":"form-control"}), label="Notes for Tenant:")
@@ -55,5 +55,5 @@ class EditTenantForm(forms.ModelForm):
     class Meta:
         model = Tenant
         exclude = [
-            "created_at", "updated",
+            "created_at", "updated", "is_active",
         ]
