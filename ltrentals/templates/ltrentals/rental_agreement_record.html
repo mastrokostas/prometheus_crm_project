@@ -41,7 +41,9 @@ Rental Agreement record
         {{ record.rental_agreement_notes }}
       </div>
       {% endif %}
-      Months Owed: {{months_owed}}
+      <div>
+        <strong>Months Owed:</strong> <strong style="color:{% if months_owed == 1 %}orange{% elif months_owed == 0 %}black{% elif months_owed > 1 %}red{% else %}blue{% endif %};">{{months_owed}}</strong>
+      </div>      
     </div>
     <div class="card-footer text-body-secondary">
       {% if record.is_active == True %}
@@ -52,7 +54,8 @@ Rental Agreement record
       <strong style="color:grey;">Inactive</strong>
       {% endif %}
     </div>
-  </div>
+    <a href="{% url "all_rental_agreements" %}" class="btn btn-secondary">Back to All Rental Agreements</a>
+  </div>  
 {% comment %} leave blank {% endcomment %}
 </br>
 <div>

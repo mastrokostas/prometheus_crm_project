@@ -1,8 +1,4 @@
-from datetime import datetime, date
-from itertools import count
-from time import strptime
-
-from django.http import HttpResponseRedirect
+from datetime import datetime
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -28,17 +24,22 @@ def get_difference(date1,date2):
 
 @login_required(login_url='login')
 def all_rental_agreements(request):
-    rental_agreements = RentalAgreement.objects.all()
+    rental_agreements = RentalAgreement.objects.all().order_by('-is_active')
     
     for record in rental_agreements:
-        #calculate months owed        
-        start_date = record.rental_agreement_starting_date
-        months_paid = record.months_paid
-        months_passed = get_months_passed(start_date,today) +1
-        months_still_owed = months_passed - months_paid
-        record.months_owed = months_still_owed
-        record.save()
-        #calculate months owed
+        if record.is_active == True:
+            #calculate months owed        
+            start_date = record.rental_agreement_starting_date
+            months_paid = record.months_paid
+            months_passed = get_months_passed(start_date,today) +1
+            months_still_owed = months_passed - months_paid
+            record.months_owed = months_still_owed
+            record.save()
+            #calculate months owed
+
+            #calculate expiring
+
+            #calculate expiring
     
     print(rental_agreements)
     return render(request, 'ltrentals/all_rental_agreements.html', {'rental_agreements':rental_agreements})
@@ -59,17 +60,7 @@ def rental_agreement_record(request, pk):
 
     months_owed = record.months_owed
 
-    #set total months
-    if record.is_active == True:
-        start_date = record.rental_agreement_starting_date
-        end_date = record.rental_agreement_ending_date    
-        difference=get_difference(start_date,end_date)
-        record.total_months = difference
-        record.save()
-    #set total months
-
     payments = MonthlyPayment.objects.filter(rental_agreement=record.id).order_by('-paid_month')
-    #rents_due = 
     form = AddPaymentForm(request.POST or None, initial={'rental_agreement':record.id})
     return render(request, 'ltrentals/rental_agreement_record.html', {'record':record, 'form':form, "payments":payments, "months_owed":months_owed, "today":today})
 
@@ -78,24 +69,11 @@ def add_rental_agreement(request):
     form = AddRentalAgreementForm(request.POST or None, initial={'security_deposits':2})
     if request.method == 'POST':
         if form.is_valid():
-
-            #calculate total months of agreement
-
-            # cleaned_start_date = form.cleaned_data.get('rental_agreement_starting_date')
-            # cleaned_end_date = form.cleaned_data.get('rental_agreement_ending_date')
-            # def get_difference(date1,date2):                
-            #     delta_months = (date2.year - date1.year) *12 + date2.month - date1.month
-            #     return delta_months
-            # difference=get_difference(cleaned_start_date,cleaned_end_date)
-
-            #difference doing nothing for now
-            
-
             #automate utilisation status
             cleaned_property = form.cleaned_data.get('property')
             tracked_property = Property.objects.get(id=cleaned_property.id)
             tracked_property.utilisation_status = "Rented"
-            tracked_property.save()
+            tracked_property.save()            
             #automate tenant activity
             cleaned_tenant = form.cleaned_data.get('tenant')
             tracked_tenant = Tenant.objects.get(id=cleaned_tenant.id)
@@ -110,7 +88,16 @@ def add_rental_agreement(request):
                 tracked_tenant.save()
                 tracked_tenant_2.is_active = True
                 tracked_tenant_2.save()
-            form.save()
+            #calculate total months            
+            cleaned_start_date = form.cleaned_data.get('rental_agreement_starting_date')
+            cleaned_end_date = form.cleaned_data.get('rental_agreement_ending_date')
+            difference=get_difference(cleaned_start_date,cleaned_end_date)
+            #make new object and insert total months and months remaining
+            new_object = form.save(commit=False)
+            new_object.total_months = difference
+            new_object.months_remaining = difference
+            new_object.save()
+            #form.save()
             messages.success(request, "Rental Agreement Added!")
             return redirect('all_rental_agreements')
     return render(request, 'ltrentals/add_rental_agreement.html', {'form':form})

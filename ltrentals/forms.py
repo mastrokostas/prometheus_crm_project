@@ -19,7 +19,7 @@ class AddRentalAgreementForm(forms.ModelForm):
     class Meta:
         model = RentalAgreement
         exclude = [
-            "created_at", "updated", "is_active", "total_months", "months_paid", "months_remaining",
+            "created_at", "updated", "is_active", "total_months", "months_paid", "months_remaining", "months_owed", "expiring",
         ]
 
 class EditRentalAgreementForm(forms.ModelForm):
@@ -36,7 +36,7 @@ class EditRentalAgreementForm(forms.ModelForm):
     class Meta:
         model = RentalAgreement
         exclude = [
-            "created_at", "updated", "is_active", "property", "total_months", "payments", "months_paid", "months_remaining",
+            "created_at", "updated", "is_active", "property", "total_months", "payments", "months_paid", "months_remaining", "months_owed", "expiring",
         ]
 
 class TerminateRentalAgreementForm(forms.ModelForm):
@@ -46,7 +46,7 @@ class TerminateRentalAgreementForm(forms.ModelForm):
     class Meta:
         model = RentalAgreement
         exclude = [
-            "created_at", "updated", "is_active", "rental_agreement_name", "property", "tenant", "tenant_2", "actual_rent", "security_deposits", "rental_agreement_starting_date", "total_months", "payments", "months_paid", "months_remaining",
+            "created_at", "updated", "is_active", "rental_agreement_name", "property", "tenant", "tenant_2", "actual_rent", "security_deposits", "rental_agreement_starting_date", "total_months", "payments", "months_paid", "months_remaining", "expiring",
         ]
 
 class AddPaymentForm(forms.ModelForm):

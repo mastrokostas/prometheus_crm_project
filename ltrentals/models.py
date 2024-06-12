@@ -22,10 +22,11 @@ class RentalAgreement(models.Model):
     rental_agreement_starting_date = models.DateField(null=True, blank=False)
     rental_agreement_ending_date = models.DateField(null=True, blank=False)
     rental_agreement_notes = models.TextField(null=False, blank=True)
-    total_months = models.PositiveSmallIntegerField(null=False)
-    months_paid = models.PositiveSmallIntegerField(null=False)
-    months_remaining = models.PositiveSmallIntegerField(null=False)
-    months_owed = models.PositiveSmallIntegerField(null=False)
+    total_months = models.PositiveSmallIntegerField(null=False, default=0)
+    months_paid = models.PositiveSmallIntegerField(null=False, default=0)
+    months_remaining = models.PositiveSmallIntegerField(null=False, default=0)
+    months_owed = models.SmallIntegerField(null=False, default=0)
+    expiring = models.BooleanField(default=False, null=False)
     #payments = models.ForeignKey(MonthlyPayment, null=True, blank=False, on_delete=models.CASCADE, related_name="payments")
 
     def __str__(self):

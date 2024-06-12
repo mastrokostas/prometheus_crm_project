@@ -83,7 +83,7 @@ class Property(models.Model):
     building_management_company = models.ForeignKey(BuildingManagementCompany, null=False, blank=False, on_delete=models.CASCADE, related_name="building_management_company")
     building_manager_first_name = models.CharField(max_length=100, null=False, blank=True)
     building_manager_last_name = models.CharField(max_length=100, null=False, blank=True)
-    building_manager_phone = models.IntegerField(null=True)
+    building_manager_phone = models.IntegerField(null=True, default=0)
     building_manager_apt = models.CharField(max_length=10, null=False, blank=True)    
 
     ## Utilities
