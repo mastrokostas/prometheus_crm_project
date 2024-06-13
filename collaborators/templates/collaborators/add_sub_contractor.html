@@ -12,7 +12,7 @@ New Sub-Contractor
 {% block content %}
 <center><h1>New Sub-Contractor</h1></center>
 
-<form method="POST" action="{% url 'add_sub_contractor' %}">
+<form class="MyForm" method="POST" action="{% url 'add_sub_contractor' %}">
     {% csrf_token %}
     {% for field in form %}
     <div class=" form_control {% if field.errors %} errors{% endif %}">

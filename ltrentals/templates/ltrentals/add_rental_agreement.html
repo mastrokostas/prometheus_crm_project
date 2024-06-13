@@ -12,7 +12,7 @@ New Rental Agreement
 {% block content %}
 <center><h1>New Rental Agreement</h1></center>
 
-<form method="POST" action="{% url 'add_rental_agreement' %}">
+<form class="MyForm" method="POST" action="{% url 'add_rental_agreement' %}">
     {% csrf_token %}
     {% for field in form %}
     <div class=" form_control {% if field.errors %} errors{% endif %}">

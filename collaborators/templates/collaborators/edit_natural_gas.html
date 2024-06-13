@@ -12,7 +12,7 @@ Edit Natural Gas Company
 {% block content %}
 <center><h1>Edit Natural Gas Company</h1></center>
 
-<form method="POST">
+<form class="MyForm" method="POST">
     {% csrf_token %}
     {% for field in form %}
     <div class=" form_control {% if field.errors %} errors{% endif %}">

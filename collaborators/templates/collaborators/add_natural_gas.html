@@ -12,7 +12,7 @@ New Natural Gas Company
 {% block content %}
 <center><h1>New Natural Gas Company</h1></center>
 
-<form method="POST" action="{% url 'add_natural_gas' %}">
+<form class="MyForm" method="POST" action="{% url 'add_natural_gas' %}">
     {% csrf_token %}
     {% for field in form %}
     <div class=" form_control {% if field.errors %} errors{% endif %}">

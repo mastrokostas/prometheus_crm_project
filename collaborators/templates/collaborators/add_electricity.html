@@ -12,7 +12,7 @@ New Electricity Company
 {% block content %}
 <center><h1>New Electricity Company</h1></center>
 
-<form method="POST" action="{% url 'add_electricity' %}">
+<form class="MyForm" method="POST" action="{% url 'add_electricity' %}">
     {% csrf_token %}
     {% for field in form %}
     <div class=" form_control {% if field.errors %} errors{% endif %}">

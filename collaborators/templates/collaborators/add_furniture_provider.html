@@ -12,7 +12,7 @@ New Furniture Provider
 {% block content %}
 <center><h1>New Furniture Provider</h1></center>
 
-<form method="POST" action="{% url 'add_furniture_provider' %}">
+<form class="MyForm" method="POST" action="{% url 'add_furniture_provider' %}">
     {% csrf_token %}
     {% for field in form %}
     <div class=" form_control {% if field.errors %} errors{% endif %}">

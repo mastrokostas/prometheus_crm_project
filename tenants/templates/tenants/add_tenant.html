@@ -12,7 +12,7 @@ New Tenant
 {% block content %}
 <center><h1>New Tenant</h1></center>
 
-<form method="POST" action="{% url 'add_tenant' %}">
+<form class="MyForm" method="POST" action="{% url 'add_tenant' %}">
     {% csrf_token %}    
     {% for field in form %}
     <div class=" form_control {% if field.errors %} errors{% endif %}">
