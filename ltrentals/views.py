@@ -9,6 +9,7 @@ from .forms import AddRentalAgreementForm, EditRentalAgreementForm,TerminateRent
 
 from properties.models import Property
 from tenants.models import Tenant
+from users.decorators import allowed_users
 
 # Create your views here.
 
@@ -66,6 +67,7 @@ def rental_agreement_record(request, pk):
     return render(request, 'ltrentals/rental_agreement_record.html', {'record':record, 'form':form, "payments":payments, "months_owed":months_owed, "today":today})
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['lt_rentals'])
 def add_rental_agreement(request):
     form = AddRentalAgreementForm(request.POST or None, initial={'security_deposits':2})
     if request.method == 'POST':
@@ -104,6 +106,7 @@ def add_rental_agreement(request):
     return render(request, 'ltrentals/add_rental_agreement.html', {'form':form})
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['lt_rentals'])
 def edit_rental_agreement(request, pk):
     record = RentalAgreement.objects.get(id=pk)
     form = EditRentalAgreementForm(request.POST or None, instance=record)
@@ -123,6 +126,7 @@ def edit_rental_agreement(request, pk):
     return render(request, 'ltrentals/edit_rental_agreement.html', {'form': form, 'record': record})
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['lt_rentals'])
 def terminate_rental_agreement(request,pk):
     record = RentalAgreement.objects.get(id=pk)
     selected_property = Property.objects.get(id=record.property.id)
@@ -155,6 +159,7 @@ def terminate_rental_agreement(request,pk):
     return render(request, 'ltrentals/terminate_rental_agreement.html', {'form': form, 'record': record})
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['lt_rentals'])
 def add_payment(request):
     form = AddPaymentForm(request.POST or None)
     if request.method == 'POST':

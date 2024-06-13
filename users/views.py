@@ -3,32 +3,32 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
+from .decorators import unauthenticated_user
+
 # Create your views here.
 
+@unauthenticated_user
 def login_user(request):
-    if request.user.is_authenticated: #cannot see paged if logged in
-        return redirect('home')
-    else:
-        # Check to see if logging in
-        if request.method == 'POST':
-            username = request.POST['username']
-            password = request.POST['password']
-            #Authenticate
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                request.session.set_expiry(43200) #12 hours
-                username = request.user.username.capitalize()
-                messages.success(request, "You have been Logged in. Welcome, " + username+"!")
-                if "next" in request.POST:
-                    return redirect(request.POST.get('next'))
-                else:
-                    return redirect('home')
+    # Check to see if logging in
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        #Authenticate
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            request.session.set_expiry(43200) #12 hours
+            username = request.user.username.capitalize()
+            messages.success(request, "You have been Logged in. Welcome, " + username+"!")
+            if "next" in request.POST:
+                return redirect(request.POST.get('next'))
             else:
-                messages.success(request, "There was an error logging in, please try again...")
-                return redirect('login')
+                return redirect('home')
         else:
-            return render(request, 'users/login.html')
+            messages.success(request, "There was an error logging in, please try again...")
+            return redirect('login')
+    else:
+        return render(request, 'users/login.html')
 
 
 @login_required(login_url= 'login')
@@ -36,3 +36,5 @@ def logout_user(request):
     logout(request)
     messages.success(request, "You Have Been Logged Out...")
     return redirect('login')
+
+    
