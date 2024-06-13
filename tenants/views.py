@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.db.models import Q
 
+from ltrentals.models import RentalAgreement
 from .models import Tenant
 from .forms import AddTenantForm, EditTenantForm
 
@@ -17,7 +19,8 @@ def all_tenants(request):
 @login_required(login_url='login')
 def tenant_record(request, pk):
     record = Tenant.objects.get(id=pk)
-    return render(request, 'tenants/tenant_record.html', {'record': record})
+    rental_agreements = RentalAgreement.objects.filter(Q(tenant=record.id) | Q(tenant_2=record.id)).order_by('is_active')
+    return render(request, 'tenants/tenant_record.html', {'record': record, 'rental_agreements':rental_agreements})
 
 
 @login_required(login_url='login')
