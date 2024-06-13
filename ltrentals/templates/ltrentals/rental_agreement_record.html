@@ -12,7 +12,6 @@ Rental Agreement record
 
 {% block content %}
 <center><h1>Rental Agreement Record</h1></center>
-{% comment %} {{today.month}} {% endcomment %}
 </br>
 <div class="card text-center">
     <div class="card-header">
@@ -55,8 +54,7 @@ Rental Agreement record
       {% endif %}
     </div>
     <a href="{% url "all_rental_agreements" %}" class="btn btn-secondary">Back to All Rental Agreements</a>
-  </div>  
-{% comment %} leave blank {% endcomment %}
+  </div>
 </br>
 <div>
   <p class="d-inline-flex gap-1">
@@ -85,17 +83,14 @@ Rental Agreement record
 </div>
 <center><h1>Payments History:</h1></center>
 <div class="panel-body table-responsive tableFixHead">
-
-  <script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
-  
   <table class="table table-striped table-hover table-bordered sortable" id="myTable">
       <thead>
         <tr>
-          <th scope="col">Paid Month/Year</th>
-          <th scope="col">Payment Amount</th>
-          <th scope="col">Payment Date</th>
-          <th scope="col">Paiment Method</th> 
-          <th scope="col">Payment ID</th>          
+          <th onclick="sortTable(0)" scope="col">Paid Month/Year</th>
+          <th onclick="sortTable(1)" scope="col">Payment Amount</th>
+          <th onclick="sortTable(2)" scope="col">Payment Date</th>
+          <th onclick="sortTable(3)" scope="col">Paiment Method</th> 
+          <th onclick="sortTable(4)" scope="col">Payment ID</th>          
         </tr>
       </thead>
       <tbody class="table-group-divider">
@@ -111,6 +106,6 @@ Rental Agreement record
               {% endfor %}
           {% endif %}
       </tbody>
-  </table>    
+  </table>
 </div>
 {% endblock content %}

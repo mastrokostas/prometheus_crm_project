@@ -16,17 +16,17 @@ All Landlords
 <br/>
 <div class="panel-body table-responsive tableFixHead">
 
-    <script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
+    
     
     <table class="table table-striped table-hover table-bordered sortable" id="myTable">
         <thead>
           <tr>
-            <th scope="col">File No.</th>
-            <th scope="col">Last Name</th>
-            <th scope="col">First Name</th>            
-            <th scope="col">Email</th>
-            <th scope="col">Status</th>
-            <th scope="col">Blacklisted</th>
+            <th onclick="sortTable(0)" scope="col">File No.</th>
+            <th onclick="sortTable(1)" scope="col">Last Name</th>
+            <th onclick="sortTable(2)" scope="col">First Name</th>            
+            <th onclick="sortTable(3)" scope="col">Email</th>
+            <th onclick="sortTable(4)" scope="col">Status</th>
+            <th onclick="sortTable(5)" scope="col">Blacklisted</th>
           </tr>
         </thead>
         <tbody class="table-group-divider">
@@ -60,10 +60,8 @@ All Landlords
                 {% endfor %}
             {% endif %}
         </tbody>
-    </table>
-    
+    </table>    
     </div>
     <br/>
     <a href="{% url "add_landlord" %}" class="btn btn-success">Add Landlord</a>
-
 {% endblock content %}
