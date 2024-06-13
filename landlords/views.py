@@ -7,6 +7,8 @@ from .models import Landlord
 from properties.models import Property
 from .forms import AddLandlordForm, EditLandlordForm
 
+from users.decorators import allowed_users
+
 # Create your views here.
 
 
@@ -24,6 +26,7 @@ def landlord_record(request, pk):
 
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['client_services'])
 def add_landlord(request):
     form = AddLandlordForm(request.POST or None)
     if request.method == 'POST':
@@ -35,6 +38,7 @@ def add_landlord(request):
 
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['client_services'])
 def edit_landlord(request, pk):
     record = Landlord.objects.get(id=pk)
     form = EditLandlordForm(request.POST or None, instance=record)
