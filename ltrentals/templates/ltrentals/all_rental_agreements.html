@@ -13,26 +13,28 @@ All Rental Agreements
 <center><h1>All Rental Agreements</h1></center>
 <br/>
 <div class="panel-body table-responsive tableFixHead"> 
-    <table class="table table-striped table-hover table-bordered sortable" id="myTable">
+    <table class="table table-striped table-hover table-bordered sortable">
         <thead>
           <tr>
-            <th onclick="sortTable(0)" scope="col">File no.</th>
-            <th onclick="sortTable(1)" scope="col">Property ID</th>
-            <th onclick="sortTable(2)" scope="col">Tenant</th>
-            <th onclick="sortTable(3)" scope="col">Agreement</th>
-            <th onclick="sortTable(4)" scope="col">Starting Date</th>
-            <th onclick="sortTable(5)" scope="col">Ending Date</th>
-            <th onclick="sortTable(6)" scope="col">Rent</th>
-            <th onclick="sortTable(7)" scope="col">Months Owed</th>
-            <th onclick="sortTable(8)" scope="col">Status</th>            
+            <th scope="col">File Type</th>
+            <th scope="col">File no.</th>
+            <th scope="col">Property ID</th>
+            <th scope="col">Tenant</th>
+            <th scope="col">Agreement</th>
+            <th scope="col">Starting Date</th>
+            <th scope="col">Ending Date</th>
+            <th scope="col">Rent</th>
+            <th scope="col">Months Owed</th>
+            <th scope="col">Status</th>            
           </tr>
         </thead>
         <tbody class="table-group-divider">
             {% if rental_agreements %}
                 {% for rental_agreement in rental_agreements %}                
                 <tr>
-                    <td><a href="{% url "landlord_record" rental_agreement.property.owner_1.id %}">{{ rental_agreement.property.owner_1.file_type }}.{{ rental_agreement.property.owner_1.file_number }}</a>
-                        {% if rental_agreement.property.owner_2 %} & <a href="{% url "landlord_record" rental_agreement.property.owner_2.id %}">{{ rental_agreement.property.owner_2.file_type }}.{{ rental_agreement.property.owner_2.file_number }}</a>{% endif %}
+                    <td><a href="{% url "landlord_record" rental_agreement.property.owner_1.id %}">{{ rental_agreement.property.owner_1.file_type }}</a></td>
+                    <td><a href="{% url "landlord_record" rental_agreement.property.owner_1.id %}">{{ rental_agreement.property.owner_1.file_number }}</a>
+                        {% if rental_agreement.property.owner_2 %} & <a href="{% url "landlord_record" rental_agreement.property.owner_2.id %}">{{ rental_agreement.property.owner_2.file_number }}</a>{% endif %}
                     </td>
                     <td><a href="{% url "property_record" rental_agreement.property.id %}">{{ rental_agreement.property.property_id }}</a></td>
                     <td><a href="{% url "tenant_record" rental_agreement.tenant.id %}">{{ rental_agreement.tenant|title }}</a> {% if rental_agreement.tenant_2 %} & <a href="{% url "tenant_record" rental_agreement.tenant_2.id %}">{{ rental_agreement.tenant_2 }}</a>{% endif %}</td>

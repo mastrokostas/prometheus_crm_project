@@ -17,7 +17,7 @@ def get_difference(date1,date2):
 
 @login_required(login_url='login')
 def all_properties(request):
-    properties = Property.objects.all()
+    properties = Property.objects.all().order_by('property_id')
     return render (request, 'properties/all_properties.html', {'properties':properties})
     
 @login_required(login_url='login')
